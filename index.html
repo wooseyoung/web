@@ -4788,6 +4788,15 @@ new MutationObserver(()=>{ const ill=book.querySelector(':scope > .spread .ill')
 })();
 
 </script>
+<script id="text-skip">
+document.addEventListener('pointerdown',e=>{
+  const st=book.querySelector(':scope > .spread .storytext'); if(!st) return;
+  const r=st.getBoundingClientRect(); if(e.clientX<r.left-6||e.clientX>r.right+6||e.clientY<r.top-6||e.clientY>r.bottom+6) return;
+  const pend=st.querySelectorAll('.pend'); if(!pend.length) return;
+  readTok++; pend.forEach(x=>x.classList.remove('pend'));
+},true);
+</script>
+<style id="text-skip-css">.spread .storytext{cursor:pointer}.spread .storytext .pend{transition-duration:.15s!important}</style>
 <script id="desk-pop-js">
 (function(){
 const POP=[];
