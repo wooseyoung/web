@@ -3992,7 +3992,7 @@ function pagePigs(){const C=state.choice,inside=C.pgHide==='inside';return [
  {kind:'scene',img:'pgBrickYard',ar:2,need:'pgBrickDoor',tx:[5,3,39],text:()=>(inside?'언덕을 오르자 과수원 옆에 셋째의 벽돌집이 보였어요. 두 형제의 목소리를 들은 셋째가 문을 열었어요.':'첫째가 셋째에게 도움을 청하고 있을 때, 둘째도 언덕 위에 도착했어요. 셋째가 서둘러 문을 열었어요.')+' “형들, 어서 들어와! 이번에는 셋이 함께 지키자.”'+(C.pgBrickDoor?' <span class="res">모두 들어온 것을 확인한 셋째가 문을 닫았어요. 뒤따라오던 늑대의 발소리가 가까워졌어요.</span>':''),fx:pgBrickHome},
  {kind:'scene',img:'pgInterior',ar:2,need:'pgBolt',tx:[5,3,38],text:()=>'문을 닫자 늑대가 밖에서 문고리를 덜컥거렸어요. “빗장도 걸어야 해!” 셋째가 문 안쪽의 나무 막대를 가리켰어요. 첫째와 둘째도 곁으로 달려와 힘을 보탰지요.'+(C.pgBolt?' <span class="res">덜컥! 빗장이 걸리자 문이 단단히 잠겼어요. 삼형제는 귀를 기울이며 바깥의 소리를 들었어요.</span>':''),fx:pgBolt},
  {kind:'scene',img:'pgBrickYard',ar:2,need:'pgWord',tx:[5,3,39],text:()=>'늑대는 언덕길에서 숨을 고른 뒤, 셋째의 <span class="pgw-slot'+(C.pgWord&&C.pgWord!=='text'?' gone':'')+'">튼튼한</span> 벽돌집을 향해 있는 힘껏 바람을 불었어요. 후우우—!'+(C.pgWord==='home'?' <span class="res">바람에 날아간 “튼튼한”을 벽돌집에 꼭 붙이자, 집은 더욱 든든해졌어요. “벽돌을 꼼꼼히 쌓길 잘했어!”</span>':C.pgWord==='wolf'?' <span class="res">“튼튼한”이 붙은 늑대의 숨이 한층 거세졌어요! 벽돌집은 버텼지만, 삼형제는 다른 방법을 찾아야 했어요.</span>':C.pgWord==='text'?' <span class="res">글자는 제자리로 돌아갔어요. 나뭇잎만 흔들렸을 뿐, 벽돌집은 끄떡없었지요.</span>':''),fx:pgBrickWind},
- {kind:'scene',img:'pgHearth',ar:2,need:'pgStop',tx:[5,3,39],text:()=>(C.pgWord==='home'?'“튼튼한” 벽돌집은 아무리 불어도 끄떡없었어요. 벽으로는 들어갈 수 없다는 걸 안 늑대는 꾀를 냈어요. 이번에는 천장에서 쿵쿵 소리가 났어요. 하나뿐인 빈틈, 굴뚝으로 들어오려는 거예요! 벽난로에서 검댕이 톡 떨어졌어요.':C.pgWord==='wolf'?'거센 바람에 창문이 덜컹거렸지만 벽돌집은 버텼어요. 숨이 찬 늑대는 다른 길을 찾았어요. 이번에는 천장에서 쿵쿵 소리가 났어요. 늑대가 지붕에 올라간 거예요! 벽난로에서 검댕이 톡 떨어졌어요.':'잠잠해진 줄 알았는데, 이번에는 천장에서 쿵쿵 소리가 났어요. 늑대가 지붕에 올라간 거예요! 벽난로에서 검댕이 톡 떨어졌어요.')+' 삼형제는 물이 든 솥과 굴뚝 안쪽 덮개를 바라보았어요.'+(C.pgStop==='cap'?' <span class="res">삼형제가 덮개를 밀어 닫았어요. 굴뚝 길이 막히자 늑대는 더 들어오지 못하고 지붕에서 내려갔어요.</span>':C.pgStop==='pot'?' <span class="res">솥을 데우자 따뜻한 김이 굴뚝으로 올라갔어요. 내려오던 늑대는 깜짝 놀라 밖으로 물러났어요.</span>':''),fx:pgRoof},
+ {kind:'scene',img:'pgHearth',ar:2,need:'pgStop',tx:[5,3,39],text:()=>(C.pgWord==='home'?'“튼튼한” 벽돌집은 아무리 불어도 끄떡없었어요. 벽으로는 들어갈 수 없다는 걸 안 늑대는 꾀를 냈어요. 이번에는 천장에서 쿵쿵 소리가 났어요. 하나뿐인 빈틈, 굴뚝으로 들어오려는 거예요! 벽난로에서 검댕이 톡 떨어졌어요.':C.pgWord==='wolf'?'거센 바람에 창문이 덜컹거렸지만 벽돌집은 버텼어요. 숨이 찬 늑대는 다른 길을 찾았어요. 이번에는 천장에서 쿵쿵 소리가 났어요. 늑대가 지붕에 올라간 거예요! 벽난로에서 검댕이 톡 떨어졌어요.':'잠잠해진 줄 알았는데, 이번에는 천장에서 쿵쿵 소리가 났어요. 늑대가 지붕에 올라간 거예요! 벽난로에서 검댕이 톡 떨어졌어요.')+' 삼형제는 물이 든 솥과 굴뚝 안쪽 덮개를 바라보았어요.'+(C.pgStop==='cap'?' <span class="res">삼형제가 덮개를 밀어 닫았어요. 굴뚝 길이 막히자 늑대는 더 들어오지 못하고 지붕에서 내려갔어요.</span>':C.pgStop==='pot'?' <span class="res">삼형제는 솥에 불을 지펴 물을 펄펄 끓였어요. 굴뚝으로 미끄러져 내려오던 늑대는 그만 끓는 솥에 풍덩! 빠지고 말았어요. 그 뒤로 늑대는 다시는 나타나지 않았답니다.</span>':''),fx:pgRoof},
  {kind:'scene',img:'pgBrickYard',ar:2,need:'pgEnd',tx:[5,3,39],text:()=>'마당이 조용해지자 셋째가 창문을 조금 열었어요. 늑대는 숲으로 이어지는 길가에 풀죽어 앉아 있었어요. “배가 고팠어. 그래도 집을 무너뜨린 건 내 잘못이야.” 삼형제는 서로를 바라보았어요.'+(C.pgEnd==='soup'?' <span class="res">“다시는 우리를 위협하지 않고, 망가뜨린 집을 고쳐 준다면 수프를 나눠 줄게.” 늑대는 고개를 끄덕였어요.</span>':C.pgEnd==='lock'?' <span class="res">“오늘은 돌아가 줘. 우리는 아직 무서워.” 삼형제는 창문을 닫았어요. 늑대는 사과하고 숲길로 돌아갔어요.</span>':''),fx:pgAfter},
  {kind:'scene',img:'pgBrickYard',ar:2,tx:[5,3,39],text:()=>C.pgEnd==='soup'?'며칠 뒤, 늑대는 약속대로 짚과 나무를 모아 두 형제의 집을 고쳐 주었어요. 일을 마친 뒤에는 벽돌집 마당에서 따뜻한 수프를 나누었지요. 삼형제는 서로 돕는 새 이웃을 얻게 되었답니다.':'늑대가 떠난 뒤 삼형제는 함께 무너진 집들을 고쳤어요. 첫째와 둘째는 셋째에게 튼튼하게 짓는 법을 배웠지요. 각자의 집이 완성될 때까지 세 형제는 벽돌집에서 서로를 돌보며 지냈답니다.',fx:pgEnding},
  {kind:'fin'}];}
@@ -4010,7 +4010,7 @@ Object.assign(JACT,{
  'pg-knockdoor'(a,ill){const sc=ill.querySelector('.pg-scene');if(state.choice.pgBuild||ill._pgMoving)return;ill._pgMoving=true;a.style.display='none';const ds=sc.querySelector('.pg-door-space,.pg-build-door');try{creak()}catch(e){}ds.classList.add('open');sc.classList.add('picked','built');pgLater(ill,()=>sc.classList.add('entered'),900);pgDone('pgBuild','yes',ill,2500);},
  'pg-pick'(a,ill){const key=a.dataset.key,v=a.dataset.v;if(state.choice[key]||ill._pgMoving)return;ill._pgMoving=true;const sc=ill.querySelector('.pg-scene');sc.dataset.pick=v;sc.classList.add('picked');ill.querySelectorAll('.pg-hs').forEach(h=>h.style.display='none');try{creak()}catch(e){}
   if(key==='pgHide'){const ds=sc.querySelector('.pg-door-space');if(v==='inside')pgLater(ill,()=>{ds.classList.add('open');sc.classList.add('entered')},500);pgDone(key,v,ill,2600);}
-  else if(key==='pgStop'){pgDone(key,v,ill,2600);}
+  else if(key==='pgStop'){pgDone(key,v,ill,v==='pot'?3400:2600);}
   else if(key==='pgEnd'){const ds=sc.querySelector('.pg-door-space');if(v==='soup')pgLater(ill,()=>ds.classList.add('open'),600);pgDone(key,v,ill,3200);}},
  'pg-blow'(a,ill){const sc=ill.querySelector('.pg-escape,.pg-strong-house');if(!sc||sc.classList.contains('blown'))return;const now=Date.now();if(sc._lb&&now-sc._lb<700)return;sc._lb=now;const cue=a.querySelector('.pg-cue');if(cue)cue.style.display='none';
   sc.classList.remove('gust');void sc.offsetWidth;sc.classList.add('gust');try{windPuff()}catch(e){}
@@ -4536,7 +4536,7 @@ DRAG.k9.auto=function(el,ill){ const harp=state.choice.loot==='harp'&&!state.cho
 .cg-inp:focus{border-color:#d0702f;box-shadow:0 0 0 .5cqh rgba(208,112,47,.2)}
 .cg-type.hit{animation:cgHit .35s ease}@keyframes cgHit{40%{scale:1.08;background:#fff3d6}}
 .cg-type.miss .cg-inp{animation:cgMiss .3s}@keyframes cgMiss{25%{translate:-.6cqw 0}75%{translate:.6cqw 0}}
-.cg.won .cg-type,.cg.caught .cg-type,.cg.grabbed .cg-type{opacity:.35;pointer-events:none}
+.cg.won .cg-type{opacity:.35;pointer-events:none}.cg.caught .cg-type,.cg.grabbed .cg-type,.cg.caught .cg-run,.cg.grabbed .cg-run,.cg.caught .cg-item,.cg.grabbed .cg-item{display:none!important}
 .cg-run{padding:1cqh 2cqw!important;font-size:2.4cqh!important;opacity:.85}
 .cg-grab{position:absolute;bottom:33%;height:62%;translate:-62% 0;z-index:3;opacity:0;pointer-events:none;max-width:none}
 .cg.grabbed .cg-grab{opacity:1;animation:cgGrab .4s ease-out}
@@ -4614,9 +4614,9 @@ function init(ill){ if(ill._cgInit) return; ill._cgInit=1; reset(ill); if(ill.qu
     if(!g.dead) pos(ill); requestAnimationFrame(loop) };
   requestAnimationFrame(loop) }
 function caught(ill){const g=A(ill); g.dead=true; const c=ill.querySelector('.cg'); const G=ill.querySelector('.cg-giant'),K=ill.querySelector('.cg-grab'); K.style.left=G.style.left; c.classList.add('grabbed'); try{footstep(.3)}catch(e){}
-  msg(ill,'앗! 거인에게 붙잡혔어요!');
-  setTimeout(()=>{ if(!ill.isConnected) return; c.classList.remove('grabbed'); const J=ill.querySelector('.cg-jack'); J.style.left=(parseFloat(K.style.left)-K.offsetWidth*.28)+'px'; c.classList.add('caught'); msg(ill,'으악! 구름 아래로 던져졌어요… 다시 도전!') },1300);
-  setTimeout(()=>{ if(ill.isConnected){ reset(ill); if(ill.querySelector('.cg-word')){ cgWord(ill); const i=ill.querySelector('.cg-inp'); i.value=''; i.focus() } msg(ill,'다시! 단어를 빠르게 쳐요') } },3400)}
+  msg(ill,'앗! 거인에게 붙잡혔어요!'); { const tp=book.querySelector(':scope > .spread .storytext p'); if(tp){ ill._cgTxt=tp.innerHTML; tp.innerHTML='“잡았다, 이 녀석!” 거인의 커다란 손이 잭을 번쩍 들어 올렸어요. 잭은 버둥거렸지만 빠져나올 수 없었어요.' } }
+  setTimeout(()=>{ if(!ill.isConnected) return; c.classList.remove('grabbed'); const J=ill.querySelector('.cg-jack'); J.style.left=(parseFloat(K.style.left)-K.offsetWidth*.28)+'px'; c.classList.add('caught'); msg(ill,'으악! 구름 아래로 던져졌어요… 다시 도전!'); { const tp=book.querySelector(':scope > .spread .storytext p'); if(tp) tp.innerHTML='거인은 잭을 구름 아래로 휙 던져 버렸어요. 으악! 잭은 빙글빙글 떨어지며 눈을 질끈 감았어요… 다시 한 번 도망쳐 볼까요?' } },1300);
+  setTimeout(()=>{ if(ill.isConnected){ reset(ill); { const tp=book.querySelector(':scope > .spread .storytext p'); if(tp&&ill._cgTxt) tp.innerHTML=ill._cgTxt } if(ill.querySelector('.cg-word')){ cgWord(ill); const i=ill.querySelector('.cg-inp'); i.value=''; i.focus() } msg(ill,'다시! 단어를 빠르게 쳐요') } },3400)}
 function run(ill){const g=A(ill); if(!g||g.dead||g.won) return; if(!g.on){ g.on=true; ill.querySelector('.cg').classList.add('running'); msg(ill,'거인이 쫓아와요! 더 빨리 쳐요!') }
   g.j=Math.min(1,g.j+.03); const J=ill.querySelector('.cg-jack'); J.classList.toggle('f2'); try{footstep(.05)}catch(e){}
   if(g.j>=1){ g.won=true; ill.querySelector('.cg').classList.add('won'); msg(ill,'콩나무에 도착했어요!'); try{miniDing(.2)}catch(e){}
@@ -4627,7 +4627,7 @@ function cgWord(ill){const g=A(ill); let w; do{w=CG_WORDS[Math.floor(Math.random
 function cgPaint(ill,v){const g=A(ill), el=ill.querySelector('.cg-word'); if(!el) return; let ok=0; while(ok<v.length&&v[ok]===g.word[ok]) ok++;
   el.innerHTML=[...g.word].map((c,i)=>`<b class="${i<ok?'ok':(i===ok&&v.length>ok?'bad':'')}">${c}</b>`).join('')}
 function cgTyped(ill,inp){const g=A(ill); if(!g||g.dead||g.won) return; const v=inp.value.trim(); cgPaint(ill,v);
-  if(v===g.word){ for(let k=0;k<5;k++) setTimeout(()=>run(ill),k*55); const t=ill.querySelector('.cg-type'); t.classList.remove('hit'); void t.offsetWidth; t.classList.add('hit');
+  if(v===g.word){ for(let k=0;k<8;k++) setTimeout(()=>run(ill),k*45); const t=ill.querySelector('.cg-type'); t.classList.remove('hit'); void t.offsetWidth; t.classList.add('hit');
     setTimeout(()=>{ inp.value=''; inp.blur(); inp.focus(); if(!A(ill).won) cgWord(ill) },0) }
   else if(v.length&&!g.word.startsWith(v.slice(0,-1))){ const t=ill.querySelector('.cg-type'); t.classList.remove('miss'); void t.offsetWidth; t.classList.add('miss') } }
 document.addEventListener('input',e=>{ if(!e.target.classList||!e.target.classList.contains('cg-inp')) return; const ill=e.target.closest('.ill'); cgTyped(ill,e.target) });
@@ -4818,6 +4818,32 @@ document.addEventListener('pointerdown',e=>{const m=e.target.closest&&e.target.c
 .page-memo::before{content:"";position:absolute;left:50%;top:-1.1cqh;width:6cqh;height:2.2cqh;translate:-50% 0;rotate:-4deg;background:rgba(232,210,150,.8)}
 .page-memo b{display:block;font-size:1.5cqh;letter-spacing:.2em;color:#9a7b4f;margin-bottom:.3cqh}
 .page-memo.min{width:auto;padding:.9cqh 1.1cqw}.page-memo.min span{display:none}.page-memo.min b{margin:0}
+</style>
+<script id="pot-end">
+(function(){
+const pick0=JACT['pg-pick'];
+JACT['pg-pick']=function(a,ill){ const isPot=a.dataset.key==='pgStop'&&a.dataset.v==='pot'&&!state.choice.pgStop&&!ill._pgMoving;
+  pick0.call(this,a,ill); if(!isPot) return;
+  const sc=ill.querySelector('.pg-scene'); const w=document.createElement('span'); w.className='pg-fall-wolf'; w.innerHTML=pgWolf('width:100%;height:auto;position:relative'); sc.appendChild(w);
+  const sp=document.createElement('span'); sp.className='pg-splash'; sp.innerHTML='<i></i><i></i><i></i><i></i><i></i>'; sc.appendChild(sp);
+  pgLater(ill,()=>{ sc.classList.add('splashed'); try{windPuff()}catch(e){} },1750) };
+const P0=pagePigs;
+pagePigs=function(){ const P=P0(); if(state.choice.pgStop!=='pot') return P; const C=state.choice;
+  const Q=P.filter(p=>p.need!=='pgEnd');
+  const e=Q.findIndex((p,i)=>i>0&&!p.need&&p.kind==='scene'&&Q[i-1].need==='pgStop');
+  if(e>=0) Q[e]={...Q[e],text:'늑대가 사라진 뒤 삼형제는 함께 무너진 집들을 다시 지었어요. 첫째와 둘째는 셋째에게 튼튼하게 짓는 법을 배웠지요. 그 뒤로 삼형제는 서로 도우며 오래오래 행복하게 살았답니다.'};
+  return Q };
+})();
+</script>
+<style id="pot-end-css">
+.pg-fall-wolf{position:absolute;left:68.5%;top:8%;width:11%;z-index:9;pointer-events:none;rotate:170deg;animation:pgFall 2s cubic-bezier(.45,0,.85,.55) forwards}
+@keyframes pgFall{0%{top:8%;opacity:0;rotate:150deg}10%{opacity:1}80%{top:40%;opacity:1;rotate:190deg}100%{top:52%;opacity:0;rotate:200deg;scale:.7}}
+.pg-splash{position:absolute;left:74%;top:62%;width:0;height:0;z-index:9;pointer-events:none}
+.pg-splash i{position:absolute;width:2.2cqw;height:3.4cqh;border-radius:50% 50% 45% 45%;background:#7ec3e0;box-shadow:0 0 0 .25cqh #fff;opacity:0}
+.splashed .pg-splash i{animation:pgDrop 1.1s ease-out forwards}
+.splashed .pg-steam{animation-duration:.8s!important;scale:1.6}
+.pg-splash i:nth-child(1){--dx:-6cqw;--dy:-9cqh}.pg-splash i:nth-child(2){--dx:-2.5cqw;--dy:-13cqh}.pg-splash i:nth-child(3){--dx:1cqw;--dy:-14cqh}.pg-splash i:nth-child(4){--dx:4.5cqw;--dy:-11cqh}.pg-splash i:nth-child(5){--dx:7cqw;--dy:-7cqh}
+@keyframes pgDrop{0%{opacity:1;translate:0 0}60%{opacity:1;translate:var(--dx) var(--dy)}100%{opacity:0;translate:calc(var(--dx)*1.3) 2cqh}}
 </style>
 <script id="desk-pop-js">
 (function(){
