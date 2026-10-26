@@ -2362,7 +2362,7 @@ function pageJack(){
         `<span class="jstalk">${[[1,11.8],[2,32.6],[3,74.6],[4,100]].map(([n,h])=>ji('jst'+n,'k'+n,`left:${JS.stalkX}%;bottom:${JS.stalkB}%;height:${h}%`)).join('')}</span>`+jNight() },
     { kind:'scene', img:'k2bg', ar:2, tx:[12,4,37],
       text:'다음 날 아침, 문을 열고 나온 잭은 깜짝 놀랐어요. 밤새 자란 콩나무가 구름 위까지 쭉 뻗어 있었거든요! "우아, 저 꼭대기에는 뭐가 있을까?"',
-      fx:()=>`<button class="k4stalk" data-act="k4sway" aria-label="콩나무">${ji('jst4','k4s')}</button>`+`<img class="k4cl k4cl1" src="${IMG.ccCloudL}" alt="" draggable="false"><img class="k4cl k4cl2" src="${IMG.ccCloudR}" alt="" draggable="false">`+
+      fx:()=>`<button class="k4stalk" data-act="k4sway" aria-label="콩나무">${ji('jst4','k4s')}</button>`+`<img class="k4cl k4cl1" src="${IMG.ccCloudL}" alt="" draggable="false">`+
         `<img class="k4jack nj" src="${NIMG.jack_base_surprised}" alt="잭" draggable="false">` },
     { kind:'scene', ar:2, need:'climb', tx:[4,5,40],
       text:()=>'잭은 콩나무 줄기를 꼭 붙잡고 위로, 위로 올라갔어요. 구름이 점점 발아래로 멀어졌어요.'+(C.climb?' <span class="res">한참을 오르자 구름 위로 무언가 커다란 것이 보이기 시작했어요.</span>':''),
@@ -4499,7 +4499,7 @@ DRAG.k9.auto=function(el,ill){ const harp=state.choice.loot==='harp'&&!state.cho
 .travel.popbook .pop-stand{scale:calc(1 + var(--st) * .14)}
 .ill.pop3d .k4cl{opacity:0;translate:0 2cqh;animation:k4clIn 1.1s ease 2.8s forwards}
 @keyframes k4clIn{to{opacity:1;translate:0 0}}
-.k4cl1{left:47%!important;top:0!important;width:22%!important}
+.k4cl1{left:50%!important;top:2%!important;width:26%!important}
 .k4cl2{left:58%!important;top:8%!important;width:24%!important}
 .cc-over .cc-l{left:38%;bottom:8%;width:38%;z-index:7}
 .cc-over .cc-r{left:62%;bottom:34%;width:36%;z-index:6}
