@@ -4513,12 +4513,9 @@ DRAG.k9.auto=function(el,ill){ const harp=state.choice.loot==='harp'&&!state.cho
 @keyframes jkUp{from{opacity:0;translate:0 1.5cqh}to{opacity:1;translate:0 0}}
 </style>
 <style id="book-thick">
-/* page block: stacked paper edges under the open spread */
-.book::after{content:"";position:absolute;left:.15em;right:.15em;top:.25em;bottom:-.85em;z-index:-1;pointer-events:none;border-radius:0 0 .25em .25em;
-  background:repeating-linear-gradient(180deg,#f6efdf 0 .09em,#e2d6bc .09em .14em);
-  box-shadow:inset 0 -.12em .2em rgba(90,70,40,.25)}
-.book::before{inset:-.55em -.7em -1.35em!important}
-.book.closed::after{display:none}
+/* page stack: many sheets showing at the outer edges and bottom of the open spread */
+.book>.spread.scene,.book>.spread.fin{box-shadow:-0.11em 0.11em 0 #f7f0e0,0.11em 0.11em 0 #f7f0e0,-0.22em 0.22em 0 #dccfb3,0.22em 0.22em 0 #dccfb3,-0.33em 0.33em 0 #f7f0e0,0.33em 0.33em 0 #f7f0e0,-0.44em 0.44em 0 #dccfb3,0.44em 0.44em 0 #dccfb3,-0.55em 0.55em 0 #f7f0e0,0.55em 0.55em 0 #f7f0e0,-0.66em 0.66em 0 #dccfb3,0.66em 0.66em 0 #dccfb3,-0.77em 0.77em 0 #f7f0e0,0.77em 0.77em 0 #f7f0e0,0 1.1em 1.4em -.6em rgba(0,0,0,.35)}
+.book.closed>.spread{box-shadow:none}
 .ill.pop3d .k4cl{opacity:0;translate:38cqw 1cqh;animation:k4clDrift 2.6s cubic-bezier(.25,.6,.3,1) 2.6s forwards!important}
 @keyframes k4clDrift{0%{opacity:0;translate:38cqw 1cqh}25%{opacity:1}100%{opacity:1;translate:0 0}}
 .ill.pop3d .k4cl1{animation:k4clDrift 2.6s cubic-bezier(.25,.6,.3,1) 2.6s forwards,k4clBob 5s ease-in-out 5.2s infinite!important}
@@ -4532,6 +4529,92 @@ DRAG.k9.auto=function(el,ill){ const harp=state.choice.loot==='harp'&&!state.cho
 .cc-over .cc-l{left:34%!important;bottom:4%!important;width:44%!important}
 .cc-over .cc-r{left:58%!important;bottom:30%!important;width:44%!important}
 </style>
+<style id="cg-css">.cg{position:absolute;inset:0;overflow:hidden;background:#fbf7ec;z-index:1}
+.cg-world{position:absolute;left:0;top:0;height:100%;width:210cqw;will-change:transform}
+.cg-bg{position:absolute;left:0;top:-40%;height:140%;width:210cqw;max-width:none;object-fit:fill}
+.cg-jack{position:absolute;bottom:35%;height:30%;aspect-ratio:.9;translate:-50% 0;z-index:3}
+.cg-jack img{position:absolute;left:0;bottom:0;height:100%;scale:-1 1;max-width:none}
+.cg-jack .r2,.cg-jack.f2 .r1{opacity:0}.cg-jack.f2 .r2{opacity:1}
+.cg-giant{position:absolute;bottom:33%;height:56%;translate:-50% 0;scale:-1 1;z-index:2;max-width:none}
+.cg.running .cg-giant{animation:cgStomp .5s ease-in-out infinite}
+@keyframes cgStomp{50%{margin-bottom:-.8cqh}}
+.cg.harping .cg-giant{animation:cgDaze .5s ease-in-out infinite}
+@keyframes cgDaze{25%{rotate:-4deg}75%{rotate:4deg}}
+.cg-notes{position:absolute;left:0;top:0;opacity:0;pointer-events:none}
+.cg.harping .cg-notes{opacity:1}
+.cg-notes i{position:absolute;font-style:normal;color:#c9962e;font-size:3cqh;animation:cgNote 1s ease-out infinite}
+.cg-notes i:nth-child(2){animation-delay:.33s}.cg-notes i:nth-child(3){animation-delay:.66s}
+@keyframes cgNote{from{opacity:1;translate:0 0}to{opacity:0;translate:2cqw -8cqh}}
+.cg.caught .cg-jack{animation:cgThrow 1.6s ease-in forwards}
+@keyframes cgThrow{0%{translate:-50% 0}25%{translate:-10% -14cqh;rotate:200deg}100%{translate:40% 40cqh;rotate:760deg;opacity:0}}
+.cg-egg{position:absolute;width:2.4cqw;height:3cqw;border-radius:50% 50% 46% 46%/60% 60% 40% 40%;background:radial-gradient(circle at 35% 30%,#fff3b8,#e7b62c 60%,#b9871a);opacity:0;pointer-events:none;z-index:4}
+.cg.egging .cg-giant{animation:cgSlip .9s ease-out}
+@keyframes cgSlip{30%{rotate:-14deg;translate:-40% 0}100%{rotate:0;translate:-50% 0}}
+.cg-hud{position:absolute;left:52%;right:4%;top:6%;z-index:6;pointer-events:none}
+.cg-track{position:relative;display:block;height:1.2cqh;border-radius:1cqh;background:rgba(120,95,60,.18)}
+.cg-track i{position:absolute;top:50%;width:2.2cqh;height:2.2cqh;margin:-1.1cqh 0 0 -1.1cqh;border-radius:50%}
+.cg-pj{background:#d0702f;box-shadow:0 0 0 .3cqh #fff}.cg-pg{background:#6a4a2a;box-shadow:0 0 0 .3cqh #fff;width:2.8cqh!important;height:2.8cqh!important;margin:-1.4cqh 0 0 -1.4cqh!important}
+.cg-goal{position:absolute;right:-1cqh;top:50%;width:2.6cqh;height:2.6cqh;margin-top:-1.3cqh;border-radius:50%;background:#6f9a3e;box-shadow:0 0 0 .3cqh #fff}
+.cg-run{position:absolute;right:9%;bottom:10%;z-index:7;border:0;border-radius:999px;padding:1.6cqh 3cqw;font:800 3.4cqh/1.1 inherit;font-family:inherit;color:#fff;background:#d0702f;box-shadow:0 .8cqh 0 #9c4f1d,0 1.2cqh 2cqh rgba(60,30,10,.3);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:.4cqh;touch-action:manipulation;animation:cgPulse 1.4s ease-in-out infinite}
+.cg-run small{font-size:1.5cqh;font-weight:600;opacity:.85}
+.cg-run:active{translate:0 .6cqh;box-shadow:0 .2cqh 0 #9c4f1d}
+.cg.running .cg-run{animation:none}
+@keyframes cgPulse{50%{scale:1.05}}
+.cg-item{position:absolute;left:9%;bottom:11%;z-index:7;display:flex;align-items:center;gap:.8cqw;border:.3cqh solid #c9a35c;border-radius:999px;padding:.8cqh 1.6cqw .8cqh .8cqw;background:#fff8e6;color:#6b4a1c;font:700 2cqh/1 inherit;font-family:inherit;cursor:pointer;box-shadow:0 .5cqh 1.2cqh rgba(60,40,15,.2)}
+.cg-item img{height:5cqh;width:auto}
+.cg-item:disabled{opacity:.35;cursor:default}
+.cg-msg{position:absolute;left:50%;bottom:3%;translate:-50% 0;z-index:7;font-size:2cqh;color:#5a4428;background:rgba(255,250,236,.9);padding:.5cqh 1.4cqw;border-radius:2cqh;white-space:nowrap;pointer-events:none}
+.cg-msg.pop{animation:cgMsg .35s ease}
+@keyframes cgMsg{from{scale:1.12}}
+.spread[data-story="jack"]:has(.cg) .skipbtn{z-index:9}
+</style>
+<script id="cg-js">IMG.chasePano="img/50129c008033.webp";
+(function(){
+const PF=pagesFor;
+pagesFor=function(id){const P=PF(id); if(id!=='jack') return P; const k=P.findIndex(p=>p&&p.need==='chase'&&!p.cg); if(k<0) return P; const C=state.choice; const o=P[k];
+  P[k]={...o,cg:1,img:null,sound:null,tx:[3,3,46],text:()=>'"이 녀석, 거기 서라!" 잠에서 깬 거인이 성문을 박차고 뛰어나왔어요. 거인에게 잡히면 구름 아래로 던져지고 말 거예요. 콩나무까지 힘껏 달려요!'+(C.chase?' <span class="res">잭은 아슬아슬하게 콩나무 줄기에 훌쩍 매달렸어요!</span>':''),fx:cgScene};
+  return P};
+function cgScene(){const C=state.choice, harp=C.loot==='harp', done=!!C.chase, key=harp?'jack_harp_harp_':'jack_hen_hen_';
+  return `<div class="cg${done?' won':''}">
+   <div class="cg-world"><img class="cg-bg" src="${IMG.chasePano}" alt="" draggable="false">
+    <img class="cg-giant" src="${NIMG.giant_chase}" alt="쫓아오는 거인" draggable="false">
+    <span class="cg-egg"></span><span class="cg-notes"><i>♪</i><i>♫</i><i>♪</i></span>
+    <span class="cg-jack"><img class="r1" src="${NIMG[key+'run']}" alt="달리는 잭" draggable="false"><img class="r2" src="${NIMG[key+'step']}" alt="" draggable="false"></span>
+   </div>
+   <div class="cg-hud"><span class="cg-track"><i class="cg-pg"></i><i class="cg-pj"></i><b class="cg-goal"></b></span></div>
+   ${done?'':`<button class="cg-item" data-act="cg-item" aria-label="${harp?'하프 연주하기':'황금알 던지기'}"><img src="${harp?IMG.harp9:IMG.hen9}" alt=""><span>${harp?'하프 연주':'황금알 던지기'}</span></button>
+   <button class="cg-run" data-act="cg-run">달려!<small>연타 · 스페이스바</small></button>
+   <span class="cg-msg">‘달려!’를 빠르게 눌러 콩나무까지 도망가요</span>`}
+  </div>`}
+const A=(ill)=>ill._cg;
+function pos(ill){const g=A(ill), w=ill.querySelector('.cg-world'), W=w.offsetWidth, V=ill.offsetWidth;
+  const xj=(.905-g.j*.83)*W, xg=(.905-g.g*.83)*W+V*.07;
+  const cam=Math.max(0,Math.min(W-V,xj-V*.42)); w.style.transform=`translateX(${-cam}px)`;
+  const J=ill.querySelector('.cg-jack'), G=ill.querySelector('.cg-giant'); J.style.left=xj+'px'; G.style.left=xg+'px';
+  const pj=ill.querySelector('.cg-pj'), pg=ill.querySelector('.cg-pg'); if(pj){pj.style.left=(g.j*100)+'%'; pg.style.left=(Math.max(0,g.g)*100)+'%'}}
+function msg(ill,t){const m=ill.querySelector('.cg-msg'); if(m){m.textContent=t; m.classList.remove('pop'); void m.offsetWidth; m.classList.add('pop')}}
+function reset(ill){ill._cg={j:0,g:-.07,on:false,used:false,stun:0,last:0,dead:false,won:false}; ill.querySelector('.cg').classList.remove('caught','running'); const it=ill.querySelector('.cg-item'); if(it) it.disabled=false; pos(ill)}
+function init(ill){ if(ill._cgInit) return; ill._cgInit=1; reset(ill); if(state.choice.chase){ ill._cg.j=1; ill._cg.g=.8; pos(ill); return }
+  const loop=t=>{ if(!ill.isConnected) return; const g=A(ill); const dt=g.last?Math.min(.05,(t-g.last)/1000):0; g.last=t;
+    if(g.on&&!g.dead&&!g.won){ if(t>g.stun) g.g+=dt*.105; if(g.g>=g.j-.015){ caught(ill) } }
+    pos(ill); requestAnimationFrame(loop) };
+  requestAnimationFrame(loop) }
+function caught(ill){const g=A(ill); g.dead=true; ill.querySelector('.cg').classList.add('caught'); try{footstep(.3)}catch(e){}
+  msg(ill,'으악! 거인에게 잡혀 구름 아래로 던져졌어요… 다시 도전!');
+  setTimeout(()=>{ if(ill.isConnected){ reset(ill); msg(ill,'다시! ‘달려!’를 빠르게 눌러요') } },2200)}
+function run(ill){const g=A(ill); if(!g||g.dead||g.won) return; if(!g.on){ g.on=true; ill.querySelector('.cg').classList.add('running'); msg(ill,'거인이 쫓아와요! 더 빨리!') }
+  g.j=Math.min(1,g.j+.034); const J=ill.querySelector('.cg-jack'); J.classList.toggle('f2'); try{footstep(.05)}catch(e){}
+  if(g.j>=1){ g.won=true; ill.querySelector('.cg').classList.add('won'); msg(ill,'콩나무에 도착했어요!'); try{miniDing(.2)}catch(e){}
+    ill.querySelectorAll('.cg-run,.cg-item').forEach(b=>b.remove()); applyChoice('chase','yes',null,700) }}
+JACT['cg-run']=(a,ill)=>run(ill);
+JACT['cg-item']=(a,ill)=>{const g=A(ill); if(!g||g.used||g.dead||g.won) return; if(!g.on){ run(ill) } g.used=true; a.disabled=true;
+  if(state.choice.loot==='harp'){ g.stun=performance.now()+2300; ill.querySelector('.cg').classList.add('harping'); setTimeout(()=>ill.querySelector('.cg')&&ill.querySelector('.cg').classList.remove('harping'),2300);
+    [2,4,3,5,4,1].forEach((n,k)=>setTimeout(()=>{try{fnHarp(n)}catch(e){}},k*170)); msg(ill,'하프 노래에 거인이 멈칫했어요!') }
+  else { g.g-=.14; const c=ill.querySelector('.cg'); c.classList.remove('egging'); void c.offsetWidth; c.classList.add('egging'); try{miniDing(.15)}catch(e){} msg(ill,'황금알에 미끄러진 거인이 뒤로 넘어졌어요!') } };
+document.addEventListener('keydown',e=>{ if(e.code!=='Space'&&e.key!==' ') return; const ill=book.querySelector(':scope > .spread .ill'); if(!ill||!ill.querySelector('.cg')||state.choice.chase) return; e.preventDefault(); run(ill) });
+new MutationObserver(()=>{ const ill=book.querySelector(':scope > .spread .ill'); if(ill&&ill.querySelector('.cg')) requestAnimationFrame(()=>init(ill)) }).observe(book,{childList:true});
+})();
+</script>
 <script id="desk-pop-js">
 (function(){
 const POP=[
