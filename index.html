@@ -2362,7 +2362,7 @@ function pageJack(){
         `<span class="jstalk">${[[1,11.8],[2,32.6],[3,74.6],[4,100]].map(([n,h])=>ji('jst'+n,'k'+n,`left:${JS.stalkX}%;bottom:${JS.stalkB}%;height:${h}%`)).join('')}</span>`+jNight() },
     { kind:'scene', img:'k2bg', ar:2, tx:[12,4,37],
       text:'다음 날 아침, 문을 열고 나온 잭은 깜짝 놀랐어요. 밤새 자란 콩나무가 구름 위까지 쭉 뻗어 있었거든요! "우아, 저 꼭대기에는 뭐가 있을까?"',
-      fx:()=>`<button class="k4stalk" data-act="k4sway" aria-label="콩나무">${ji('jst4','k4s')}</button>`+`<img class="k4cl k4cl1" src="${IMG.ccCloudL}" alt="" draggable="false"><img class="k4cl k4cl2" src="${IMG.ccCloudR}" alt="" draggable="false"><img class="k4cl k4cl3" src="${IMG.ccCloudL}" alt="" draggable="false">`+
+      fx:()=>`<button class="k4stalk" data-act="k4sway" aria-label="콩나무">${ji('jst4','k4s')}</button>`+`<img class="k4cl k4cl1" src="${IMG.ccCloudL}" alt="" draggable="false"><img class="k4cl k4cl2" src="${IMG.ccCloudR}" alt="" draggable="false">`+
         `<img class="k4jack nj" src="${NIMG.jack_base_surprised}" alt="잭" draggable="false">` },
     { kind:'scene', ar:2, need:'climb', tx:[4,5,40],
       text:()=>'잭은 콩나무 줄기를 꼭 붙잡고 위로, 위로 올라갔어요. 구름이 점점 발아래로 멀어졌어요.'+(C.climb?' <span class="res">한참을 오르자 구름 위로 무언가 커다란 것이 보이기 시작했어요.</span>':''),
@@ -3342,7 +3342,7 @@ function ghStateText(text,need,result){return text+(state.choice[need]?` <span c
 function ghKitchenActors(peek){return `<div class="jr-gate"></div>`+
  (peek?ghChar('giant_talk','gh-kitchen-giant','left:44%;bottom:4%;height:82%'):ghChar('giant_talk','gh-kitchen-giant gh-mirror','left:25%;bottom:4%;height:82%'))+
  `<img class="jk-eggbasket" src="${AIMG.basket1}" alt="황금알" draggable="false"><img class="k9it harp" src="${IMG.harp9}" alt="황금 하프" draggable="false"><img class="k9it hen" src="${IMG.hen9}" alt="암탉" draggable="false">`+
- (peek?`<img class="jk-room-chest peek" src="${IMG.chestPeek}" alt="상자 속에서 내다보는 잭" draggable="false">`
+ (peek?`<img class="jk-room-chest peek jk-peek2" src="${IMG.jchest}" alt="상자 속에서 내다보는 잭" draggable="false">`
   :`<img class="jk-room-chest open" src="${IMG.jackChestOpen}" alt="열린 나무 상자" draggable="false">`+ghChar('jack_base_stand','gh-kitchen-jack','left:66%;bottom:2%;height:47%'));
 }
 
@@ -4200,7 +4200,7 @@ pagePigs=function(){const P=P0(),C=state.choice;const at=P.findIndex(p=>p.need==
 @keyframes popInk{0%{--gs:1}100%{--gs:0}}
 .ill.pop3d>img.base{filter:none}
 .pop-stand{position:absolute;inset:0;pointer-events:none;transform-style:flat;transform-origin:50% var(--foot);
-  transform:rotateX(calc(var(--st) * -1 * var(--stand)));--stand:calc(var(--tilt) + 16deg);--st:0;animation:popStand 1.5s cubic-bezier(.35,.1,.25,1) both;animation-delay:calc(1.1s + var(--pd,0s));
+  transform:rotateX(calc(var(--st) * -1 * var(--stand)));--stand:calc(var(--tilt) + 6deg);--st:0;animation:popStand 1.5s cubic-bezier(.35,.1,.25,1) both;animation-delay:calc(1.1s + var(--pd,0s));
   filter:drop-shadow(0 0 .1cqh rgba(255,250,240,.45)) drop-shadow(0 1.2cqh 1cqh rgba(40,28,15,.26))}
 .pop-stand>*{pointer-events:auto}
 @keyframes popStand{0%{--st:0}100%{--st:1}}
@@ -4438,7 +4438,7 @@ function check(sc){ if(sc._rising||sc.classList.contains('rose')) return; const 
   if(l>.15||r>.15) hint(sc,'구름 너머에 뭔가 보여요… 조금 더!');
   if(l>.65&&r>.65){ sc._rising=1; try{miniDing(.18)}catch(e){}
     sc.classList.add('rise'); try{creak()}catch(e){}
-    setTimeout(()=>{ if(!sc.isConnected) return; sc.classList.add('rose'); hint(sc,'성문으로 갈까요, 새가 우는 구름길로 갈까요?') },1700) } }
+    setTimeout(()=>{ if(!sc.isConnected) return; sc.classList.add('rose'); hint(sc,'성문을 두드릴까요, 구름길의 새에게 가 볼까요?') },900) } }
 JACT['cc-pick']=function(a,ill){ const sc=ill.querySelector('.cc-scene'); if(!sc||!sc.classList.contains('rose')||C().cwPath) return; const v=a.dataset.v;
   sc.querySelectorAll('.cc-pick').forEach(b=>b.remove()); const h=sc.querySelector('.cc-hint'); if(h) h.remove();
   if(v==='cloud'){ sc.querySelector('.cc-bird').classList.add('picked'); try{miniDing(.2)}catch(e){} } else { try{footstep(.2);setTimeout(()=>footstep(.2),260)}catch(e){} }
@@ -4458,7 +4458,7 @@ pagesFor=function(id){ let P=PF(id); if(id!=='jack') return P;
   P=P.filter(p=>!(p&&p.need==='jhide'));
   const i=P.findIndex(p=>p&&p.need==='cwPath'&&!p.cc); if(i<0) return P; const C=state.choice;
   const pg={kind:'scene',img:'ccBg',ar:2,need:'cwPath',cc:1,cwScene:'fork',tx:[4,4,40],text:()=>'콩나무 꼭대기에 다다르자 눈앞에 두꺼운 구름이 잔뜩 끼어 있었어요. 구름 너머에서 무언가 커다란 그림자가 어른거렸지요.'+(C.cwPath==='cloud'?' <span class="res">구름이 걷히자 하얀 성이 나타났어요. 그런데 옆 구름 위에서 새가 울고 있었어요. 잭은 새에게 가 보기로 했어요.</span>':C.cwPath?' <span class="res">구름이 걷히자 하얀 성이 나타났어요. 잭은 구름을 밟고 성문 쪽으로 걸어갔어요.</span>':''),fx:ccScene};
-  P=[...P]; P[i]=pg;
+  P=[...P]; const orig=P[i]; P[i]={...orig,cc:1,fx:()=>orig.fx()+(C.cwPath?'':`<div class="pg-scene cc-scene cc-over" style="--ccp:0"><div class="cc-cloud cc-l" data-side="l" role="button" tabindex="0" aria-label="왼쪽 구름 걷어내기" style="--cco:0"><img src="${IMG.ccCloudL}" alt="" draggable="false"></div><div class="cc-cloud cc-r" data-side="r" role="button" tabindex="0" aria-label="오른쪽 구름 걷어내기" style="--cco:0"><img src="${IMG.ccCloudR}" alt="" draggable="false"></div><span class="cc-hint">구름을 양옆으로 밀어 걷어 보세요</span></div>`),text:()=>'콩나무 꼭대기에 오르자 눈앞에 두꺼운 구름이 잔뜩 끼어 있었어요. 구름 너머에서 무언가 커다란 그림자가 어른거렸지요.'+(C.cwPath==='cloud'?' <span class="res">구름이 걷히자 커다란 성이 나타났어요. 그런데 옆 구름길에서 새가 울고 있었어요. 잭은 새에게 가 보기로 했어요.</span>':C.cwPath?' <span class="res">구름이 걷히자 커다란 성이 나타났어요. 잭은 성문을 똑똑 두드렸어요.</span>':'')};
   // harp wakes the giant on the escape page
   const k=P.findIndex(p=>p&&p.need==='escape');
   if(k>=0&&C.loot==='harp'){ const o=P[k]; P[k]={...o,text:()=>'황금 하프를 품에 안은 잭은 발소리를 죽이고 부엌 문 쪽으로 살금살금 걸어갔어요. 어서 문 쪽으로 가야 해요!'+(C.escape?' <span class="res">그때 하프가 “띠리링~ 주인님, 도둑이에요!” 하고 노래를 불렀어요. 거인이 번쩍 눈을 떴어요!</span>':'')} }
@@ -4468,7 +4468,7 @@ const auto0=DRAG.k9.auto;
 DRAG.k9.auto=function(el,ill){ const harp=state.choice.loot==='harp'&&!state.choice.escape&&!ill._escaping; auto0.call(this,el,ill);
   if(!harp) return; [0,1,2,3,4,5].forEach((n,j)=>setTimeout(()=>fnHarp([2,4,3,5,4,1][j]),250+j*190));
   const b=document.createElement('span'); b.className='jk-harp-say'; b.textContent='♪ 띠리링~ 주인님, 도둑이에요!'; ill.appendChild(b);
-  const g=ill.querySelector('.jk-sleep'); if(g) setTimeout(()=>g.classList.add('jk-wake'),900) };
+  const g=ill.querySelector('.jk-sleep'); if(g){ setTimeout(()=>g.classList.add('jk-wake'),900); setTimeout(()=>{ if(!ill.isConnected) return; const w=document.createElement('img'); w.className='jk-awake'; w.src=IMG.gawake||NIMG.giant_talk; w.alt='잠에서 깬 거인'; ill.appendChild(w); g.classList.add('gone') },2300) } };
 })();
 </script>
 <script id="pig3-fix">CHARS.pig3=Object.assign({},CHARS.pig3,{body:"img/2f605604c35e.webp",parts:[]});</script>
@@ -4494,6 +4494,23 @@ DRAG.k9.auto=function(el,ill){ const harp=state.choice.loot==='harp'&&!state.cho
 .book::before{box-shadow:0 1.6em 2.2em -1em rgba(0,0,0,.45), inset 0 0 0 .12em rgba(0,0,0,.25)!important;transition:box-shadow .8s}
 .travel.popbook .book::before{box-shadow:0 2.4em 3em -1.4em rgba(0,0,0,.38), inset 0 0 0 .12em rgba(0,0,0,.25)!important}
 .reader .close{background:rgba(255,250,240,.85)}
+</style>
+<style id="fix-32">
+.travel.popbook .pop-stand{scale:calc(1 + var(--st) * .14)}
+.ill.pop3d .k4cl{opacity:0;translate:0 2cqh;animation:k4clIn 1.1s ease 2.8s forwards}
+@keyframes k4clIn{to{opacity:1;translate:0 0}}
+.k4cl1{left:47%!important;top:0!important;width:22%!important}
+.k4cl2{left:58%!important;top:8%!important;width:24%!important}
+.cc-over .cc-l{left:38%;bottom:8%;width:38%;z-index:7}
+.cc-over .cc-r{left:62%;bottom:34%;width:36%;z-index:6}
+.cc-over .cc-hint{left:38%;bottom:3%}
+.cc-over.rose .cc-cloud{opacity:0;pointer-events:none;transition:opacity .9s}
+.ill:has(.cc-over:not(.rose)) :is(.k6door,.cw-cloud-choice){opacity:0;pointer-events:none}
+.ill:has(.cc-over) :is(.k6door,.cw-cloud-choice){transition:opacity .8s}
+.jk-room-chest.jk-peek2{width:23%!important;height:auto!important}
+.jk-sleep.gone{opacity:0;transition:opacity .5s}
+.jk-awake{position:absolute;left:30%;bottom:4%;height:82%;width:auto;z-index:1;pointer-events:none;animation:jkUp .6s ease-out both}
+@keyframes jkUp{from{opacity:0;translate:0 3cqh}to{opacity:1;translate:0 0}}
 </style>
 <script id="desk-pop-js">
 (function(){
