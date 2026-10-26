@@ -3347,7 +3347,7 @@ function ghKitchenActors(peek){return `<div class="jr-gate"></div>`+
 }
 
 function ghGate(){return {kind:'scene',img:'k7',ar:2,visualPage:8,jrScene:'fork',need:'jrPath',tx:[3,2,43],
- text:()=> '황금알이 바구니에 쌓이자 거인은 크게 하품했어요. 상자 틈으로 내다보던 잭은 망설였어요. 보물에 다가갈까요, 아니면 용기를 내 거인에게 말을 걸어 볼까요?'+(state.choice.jrPath==='greenhouse'?' <span class="res">“저기요, 제가 도와드릴 일은 없나요?”</span>':state.choice.jrPath?' <span class="res">잭은 거인이 잠들기를 기다렸어요.</span>':''),
+ text:()=> '황금알이 바구니에 쌓이자 거인은 창밖을 바라보며 길게 한숨을 쉬었어요. “온실 콩나무가 다 시들어 가는구나… 이를 어쩌면 좋담.” 상자 틈으로 내다보던 잭은 망설였어요. 보물에 다가갈까요, 아니면 용기를 내 거인에게 말을 걸어 볼까요?'+(state.choice.jrPath==='greenhouse'?' <span class="res">잭은 조심스레 상자에서 나왔어요. “저… 시든 콩나무라면 제가 돌볼 수 있어요. 우리 집 밭에서 콩을 키워 봤거든요!”</span>':state.choice.jrPath?' <span class="res">잭은 거인이 잠들기를 기다렸어요.</span>':''),
  fx:()=>ghKitchenActors(true)+`<button class="gh-hotspot gh-treasure-choice" data-act="gh-path" data-v="treasure" aria-label="보물에 다가가기"><span>보물에 다가가기</span></button><button class="gh-hotspot gh-talk-choice" data-act="gh-path" data-v="greenhouse" aria-label="거인에게 말 걸기"><span>거인에게 말 걸기</span></button>`
 }}
 
@@ -3392,7 +3392,7 @@ function ghShareScene(){
 
 function ghPages(){return [
  {kind:'scene',img:'k7',ar:2,visualPage:6,jrScene:'request',need:'ghEnter',tx:[3,2,43],
-  text:()=>ghStateText('“식물을 기를 줄 아니?” 거인은 온실 쪽을 가리켰어요. “물길이 망가져서 콩나무가 모두 시들고 있단다.” 잭은 고개를 끄덕였어요. “제가 한번 살펴볼게요!” 문을 열고 온실로 가 볼까요?','ghEnter','잭과 거인은 함께 온실로 향했어요.'),
+  text:()=>ghStateText('거인은 깜짝 놀라 눈을 끔뻑였지만, 곧 커다란 손으로 온실 쪽을 가리켰어요. “정말이냐? 물길이 망가져서 콩나무가 모두 시들고 있단다.” 잭은 고개를 끄덕였어요. “제가 한번 살펴볼게요!” 문을 열고 온실로 가 볼까요?','ghEnter','잭과 거인은 함께 온실로 향했어요.'),
   fx:()=>ghKitchenActors()+`<button class="gh-hotspot gh-greenhouse-door" data-act="gh-enter" aria-label="문을 열고 온실로 가기"><span>온실로 가기</span></button>`},
  {kind:'scene',img:'ghRoom',ar:2,visualPage:100,jrScene:'repair',need:'ghWater',tx:[4,4,38],
   text:()=>ghStateText('커다란 물통에는 물이 가득했지만, 나무 물길 세 군데가 끊겨 있었어요. “그래서 화분까지 물이 닿지 않았구나!”','ghWater','쏴아— 물이 막힘없이 흘러가기 시작했어요.'),fx:()=>ghGreenhouse('repair')},
@@ -4610,7 +4610,7 @@ function msg(ill,t){const m=ill.querySelector('.cg-msg'); if(m){m.textContent=t;
 function reset(ill){ill._cg={j:0,g:-.07,on:false,used:false,stun:0,last:0,dead:false,won:false}; ill.querySelector('.cg').classList.remove('caught','running','grabbed'); const it=ill.querySelector('.cg-item'); if(it) it.disabled=false; pos(ill)}
 function init(ill){ if(ill._cgInit) return; ill._cgInit=1; reset(ill); if(ill.querySelector('.cg-word')){ cgWord(ill); const inp=ill.querySelector('.cg-inp'); inp.addEventListener('pointerdown',e=>e.stopPropagation()); inp.addEventListener('keydown',e=>e.stopPropagation()); setTimeout(()=>{try{inp.focus({preventScroll:true})}catch(e){}},400) } if(state.choice.chase){ ill._cg.j=1; ill._cg.g=.8; pos(ill); return }
   const loop=t=>{ if(!ill.isConnected) return; const g=A(ill); const dt=g.last?Math.min(.05,(t-g.last)/1000):0; g.last=t;
-    if(g.on&&!g.dead&&!g.won){ if(t>g.stun) g.g+=dt*.052; if(g.g>=g.j-.015){ caught(ill) } }
+    if(g.on&&!g.dead&&!g.won){ if(t>g.stun) g.g+=dt*.04; if(g.g>=g.j-.015){ caught(ill) } }
     if(!g.dead) pos(ill); requestAnimationFrame(loop) };
   requestAnimationFrame(loop) }
 function caught(ill){const g=A(ill); g.dead=true; const c=ill.querySelector('.cg'); const G=ill.querySelector('.cg-giant'),K=ill.querySelector('.cg-grab'); K.style.left=G.style.left; c.classList.add('grabbed'); try{footstep(.3)}catch(e){}
@@ -4627,7 +4627,7 @@ function cgWord(ill){const g=A(ill); let w; do{w=CG_WORDS[Math.floor(Math.random
 function cgPaint(ill,v){const g=A(ill), el=ill.querySelector('.cg-word'); if(!el) return; let ok=0; while(ok<v.length&&v[ok]===g.word[ok]) ok++;
   el.innerHTML=[...g.word].map((c,i)=>`<b class="${i<ok?'ok':(i===ok&&v.length>ok?'bad':'')}">${c}</b>`).join('')}
 function cgTyped(ill,inp){const g=A(ill); if(!g||g.dead||g.won) return; const v=inp.value.trim(); cgPaint(ill,v);
-  if(v===g.word){ for(let k=0;k<8;k++) setTimeout(()=>run(ill),k*45); const t=ill.querySelector('.cg-type'); t.classList.remove('hit'); void t.offsetWidth; t.classList.add('hit');
+  if(v===g.word){ for(let k=0;k<4;k++) setTimeout(()=>run(ill),k*70); const t=ill.querySelector('.cg-type'); t.classList.remove('hit'); void t.offsetWidth; t.classList.add('hit');
     setTimeout(()=>{ inp.value=''; inp.blur(); inp.focus(); if(!A(ill).won) cgWord(ill) },0) }
   else if(v.length&&!g.word.startsWith(v.slice(0,-1))){ const t=ill.querySelector('.cg-type'); t.classList.remove('miss'); void t.offsetWidth; t.classList.add('miss') } }
 document.addEventListener('input',e=>{ if(!e.target.classList||!e.target.classList.contains('cg-inp')) return; const ill=e.target.closest('.ill'); cgTyped(ill,e.target) });
@@ -4707,27 +4707,27 @@ new MutationObserver(()=>{ const ill=book.querySelector(':scope > .spread .ill')
   const plans = {
     pgBuild: {
       title: '짚단을 엮어 집 짓기', image: 'img/d7531bcbc3b6.webp', pig: 0,
-      intro: '첫째가 집을 지을 수 있도록 짚단을 하나씩 옮겨 주세요.',
-      steps: ['짚단을 벽의 빈자리로 끌어 놓아요.', '벽을 채우면 지붕에 짚을 차곡차곡 얹어요.', '집이 완성되면 첫째가 문을 열고 들어가요.'],
-      note: '벽 → 지붕 → 입주 순서의 조립 인터랙션을 구현할 예정이에요.'
+      intro: '첫째가 짚단을 하나씩 옮겨 직접 집을 짓는 장면.',
+      steps: ['짚단을 벽의 빈자리로 끌어 놓기', '벽을 다 채우면 지붕에 짚을 차곡차곡 얹기', '집이 완성되면 첫째가 문을 열고 들어감'],
+      note: '벽 → 지붕 → 입주 순서의 조립 인터랙션 구현 예정'
     },
     pgWoodBuild: {
       title: '나무판을 맞춰 집 짓기', image: 'img/da5b13c32856.webp', pig: 1,
-      intro: '둘째와 함께 나무판을 세우고 지붕을 덮어 주세요.',
-      steps: ['나무판을 기둥 사이 빈자리에 맞춰요.', '판자가 맞으면 고정되고 벽이 이어져요.', '지붕널과 문까지 붙이면 나무집이 완성돼요.'],
-      note: '재료가 놓이는 순서에 따라 집이 실제로 조립되는 모습을 구현할 예정이에요.'
+      intro: '둘째와 함께 나무판을 세우고 지붕을 덮는 장면.',
+      steps: ['나무판을 기둥 사이 빈자리에 맞추기', '판자가 맞으면 고정되며 벽이 이어짐', '지붕널과 문까지 붙이면 나무집 완성'],
+      note: '재료를 놓는 순서대로 집이 실제로 조립되는 모습 구현 예정'
     },
     pgBrickBuild: {
       title: '벽돌을 쌓아 튼튼한 집 짓기', image: 'img/d893fb865eda.webp', pig: 2,
-      intro: '셋째를 도와 벽돌을 한 줄씩 엇갈리게 쌓아 주세요.',
-      steps: ['벽돌을 아래쪽 빈자리부터 옮겨 놓아요.', '한 줄을 채우면 다음 줄을 쌓을 수 있어요.', '벽과 지붕을 완성하면 삼형제를 지켜 줄 집이 돼요.'],
-      note: '한 번에 집이 나타나는 대신 벽돌 → 벽 → 지붕 순서로 완성할 예정이에요.'
+      intro: '셋째를 도와 벽돌을 한 줄씩 엇갈리게 쌓는 장면.',
+      steps: ['벽돌을 아래쪽 빈자리부터 옮겨 놓기', '한 줄을 채우면 다음 줄을 쌓을 수 있음', '벽과 지붕을 완성하면 삼형제를 지켜 줄 집 완성'],
+      note: '한 번에 집이 나타나는 대신 벽돌 → 벽 → 지붕 순서로 완성 예정'
     },
     harpTalk: {
       title: '하프와 조용히 이야기하기', image: IMG.k7,
-      intro: '잠든 거인 옆에서 하프에게 작은 목소리로 말을 걸어요.',
-      steps: ['하프를 눌러 대화를 시작해요.', '잭이 하프에게 조용히 해 달라고 부탁하거나 서둘러요.', '고른 대답에 따라 하프가 조용해지거나 소리쳐 거인을 깨워요.'],
-      note: '대화 선택에 따라 하프가 잠시 조용해지거나 거인을 깨우고, 그 결과가 도망갈 수 있는 시간에 영향을 주도록 구현할 예정이에요. 지금은 하프가 바로 울려 거인이 깨어나요.'
+      intro: '잠든 거인 옆에서 하프에게 작은 목소리로 말을 거는 장면.',
+      steps: ['하프를 눌러 대화 시작', '잭이 하프에게 조용히 해 달라고 부탁하거나 서두름', '고른 대답에 따라 하프가 조용해지거나 소리쳐 거인을 깨움'],
+      note: '대화 선택에 따라 하프가 잠시 조용해지거나 거인을 깨우고, 그 결과가 도망갈 수 있는 시간에 영향을 주도록 구현 예정'
     }
   };
   const previousRender = render;
@@ -4800,11 +4800,11 @@ document.addEventListener('pointerdown',e=>{
 <script id="page-memo">
 (function(){
 const MEMO={
- 'jack:climb':'콩나무와 잭의 색·선을 통일하고, 손발을 번갈아 짚는 동작을 이어 실제로 오르는 느낌을 보완할 예정이에요.',
- 'jack:descend':'콩나무와 잭의 색·선을 통일하고, 손발을 번갈아 짚는 동작을 이어 실제로 내려오는 느낌을 보완할 예정이에요.',
- 'jack:ghWater':'빈자리를 부러진 나무 수로 모양으로 바꾸고, 조각을 잇고 밸브를 열면 물이 화분까지 흘러가는 모습을 보완할 예정이에요.',
- 'jack:chop':'밑동을 땅과 자연스럽게 잇고, 도끼가 닿을 때마다 홈과 나무 조각이 생기게 한 뒤 마지막에 줄기가 기울어 쓰러지게 할 예정이에요.',
- 'pigs:pgEscapeStraw':'짓는 중·완성·무너진 짚집을 같은 디자인으로 통일하고, 바람에 지붕과 벽이 차례로 무너지는 연출을 추가할 예정이에요.'
+ 'jack:climb':'콩나무와 잭의 색·선을 통일하고, 손발을 번갈아 짚는 동작을 이어 실제로 오르는 느낌을 보완할 예정',
+ 'jack:descend':'콩나무와 잭의 색·선을 통일하고, 손발을 번갈아 짚는 동작을 이어 실제로 내려오는 느낌을 보완할 예정',
+ 'jack:ghWater':'빈자리를 부러진 나무 수로 모양으로 바꾸고, 조각을 잇고 밸브를 열면 물이 화분까지 흘러가는 모습을 보완할 예정',
+ 'jack:chop':'밑동을 땅과 자연스럽게 잇고, 도끼가 닿을 때마다 홈과 나무 조각이 생기게 한 뒤 마지막에 줄기가 기울어 쓰러지는 연출을 추가할 예정',
+ 'pigs:pgEscapeStraw':'짓는 중·완성·무너진 짚집을 같은 디자인으로 통일하고, 바람에 지붕과 벽이 차례로 무너지는 연출을 추가할 예정'
 };
 const R=render;
 render=function(i){const sp=R(i); try{const p=pagesFor(state.story)[i]; const t=p&&p.need&&MEMO[state.story+':'+p.need];
