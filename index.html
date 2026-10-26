@@ -4512,7 +4512,7 @@ DRAG.k9.auto=function(el,ill){ const harp=state.choice.loot==='harp'&&!state.cho
 .jk-awake{position:absolute;left:.4%;top:18.5%;width:73%;height:auto;z-index:1;pointer-events:none;animation:jkUp .35s ease-out both}
 @keyframes jkUp{from{opacity:0;translate:0 1.5cqh}to{opacity:1;translate:0 0}}
 </style>
-<style id="book-thick">
+<style id="book-thick">.k4cl{display:none!important}
 /* page stack: many sheets showing at the outer edges and bottom of the open spread */
 .book>.spread.scene,.book>.spread.fin{box-shadow:-0.11em 0.11em 0 #f7f0e0,0.11em 0.11em 0 #f7f0e0,-0.22em 0.22em 0 #dccfb3,0.22em 0.22em 0 #dccfb3,-0.33em 0.33em 0 #f7f0e0,0.33em 0.33em 0 #f7f0e0,-0.44em 0.44em 0 #dccfb3,0.44em 0.44em 0 #dccfb3,-0.55em 0.55em 0 #f7f0e0,0.55em 0.55em 0 #f7f0e0,-0.66em 0.66em 0 #dccfb3,0.66em 0.66em 0 #dccfb3,-0.77em 0.77em 0 #f7f0e0,0.77em 0.77em 0 #f7f0e0,0 1.1em 1.4em -.6em rgba(0,0,0,.35)}
 .book.closed>.spread{box-shadow:none}
@@ -4617,12 +4617,7 @@ new MutationObserver(()=>{ const ill=book.querySelector(':scope > .spread .ill')
 </script>
 <script id="desk-pop-js">
 (function(){
-const POP=[
-  {when:'.clue',cards:[['.kids12'],['.stump12','.clue.map','.clue.bell','.hs','.chimewave']]},
-  {when:'.k4stalk',cards:[['.k4stalk','.k4cl'],['.k4jack']]},
-  
-  {when:'.pg-strong-house',cards:[['.pg-focus-home','.pg-knock','.pg-window-peek','.pgw-sign-home'],['.pg-wolf-blow','.pg-wind']]}
-];
+const POP=[];
 const travel=document.getElementById('travel');
 function rel(el,ill){const r=el.getBoundingClientRect(),R=ill.getBoundingClientRect();return {l:(r.left-R.left)/R.width*100,r:(r.right-R.left)/R.width*100,b:(r.bottom-R.top)/R.height*100,h:r.height}}
 function prep(ill,def){
