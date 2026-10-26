@@ -4434,7 +4434,7 @@ window.ccScene=function(){const v=C().cwPath, done=!!v;
 let drag=null;
 const prog=sc=>[...sc.querySelectorAll('.cc-cloud')].map(c=>+c.style.getPropertyValue('--cco')||0);
 function hint(sc,t){const h=sc.querySelector('.cc-hint'); if(h) h.textContent=t}
-function check(sc){ if(sc._rising||sc.classList.contains('rose')) return; const [l,r]=prog(sc);
+function check(sc){ if(sc._rising||sc.classList.contains('rose')) return; const [l,r]=prog(sc); sc.style.setProperty('--rev',((Math.min(l,.65)+Math.min(r,.65))/1.3).toFixed(3));
   if(l>.15||r>.15) hint(sc,'구름 너머에 뭔가 보여요… 조금 더!');
   if(l>.65&&r>.65){ sc._rising=1; try{miniDing(.18)}catch(e){}
     sc.classList.add('rise'); try{creak()}catch(e){}
@@ -4458,7 +4458,7 @@ pagesFor=function(id){ let P=PF(id); if(id!=='jack') return P;
   P=P.filter(p=>!(p&&p.need==='jhide'));
   const i=P.findIndex(p=>p&&p.need==='cwPath'&&!p.cc); if(i<0) return P; const C=state.choice;
   const pg={kind:'scene',img:'ccBg',ar:2,need:'cwPath',cc:1,cwScene:'fork',tx:[4,4,40],text:()=>'콩나무 꼭대기에 다다르자 눈앞에 두꺼운 구름이 잔뜩 끼어 있었어요. 구름 너머에서 무언가 커다란 그림자가 어른거렸지요.'+(C.cwPath==='cloud'?' <span class="res">구름이 걷히자 하얀 성이 나타났어요. 그런데 옆 구름 위에서 새가 울고 있었어요. 잭은 새에게 가 보기로 했어요.</span>':C.cwPath?' <span class="res">구름이 걷히자 하얀 성이 나타났어요. 잭은 구름을 밟고 성문 쪽으로 걸어갔어요.</span>':''),fx:ccScene};
-  P=[...P]; const orig=P[i]; P[i]={...orig,cc:1,fx:()=>orig.fx()+(C.cwPath?'':`<div class="pg-scene cc-scene cc-over" style="--ccp:0"><div class="cc-cloud cc-l" data-side="l" role="button" tabindex="0" aria-label="왼쪽 구름 걷어내기" style="--cco:0"><img src="${IMG.ccCloudL}" alt="" draggable="false"></div><div class="cc-cloud cc-r" data-side="r" role="button" tabindex="0" aria-label="오른쪽 구름 걷어내기" style="--cco:0"><img src="${IMG.ccCloudR}" alt="" draggable="false"></div><span class="cc-hint">구름을 양옆으로 밀어 걷어 보세요</span></div>`),text:()=>'콩나무 꼭대기에 오르자 눈앞에 두꺼운 구름이 잔뜩 끼어 있었어요. 구름 너머에서 무언가 커다란 그림자가 어른거렸지요.'+(C.cwPath==='cloud'?' <span class="res">구름이 걷히자 커다란 성이 나타났어요. 그런데 옆 구름길에서 새가 울고 있었어요. 잭은 새에게 가 보기로 했어요.</span>':C.cwPath?' <span class="res">구름이 걷히자 커다란 성이 나타났어요. 잭은 성문을 똑똑 두드렸어요.</span>':'')};
+  P=[...P]; const orig=P[i]; P[i]={...orig,cc:1,fx:()=>orig.fx()+(C.cwPath?'':`<div class="pg-scene cc-scene cc-over" style="--ccp:0;--rev:0"><span class="cc-veil"></span><div class="cc-cloud cc-l" data-side="l" role="button" tabindex="0" aria-label="왼쪽 구름 걷어내기" style="--cco:0"><img src="${IMG.ccCloudL}" alt="" draggable="false"></div><div class="cc-cloud cc-r" data-side="r" role="button" tabindex="0" aria-label="오른쪽 구름 걷어내기" style="--cco:0"><img src="${IMG.ccCloudR}" alt="" draggable="false"></div><span class="cc-hint">구름을 양옆으로 밀어 걷어 보세요</span></div>`),text:()=>'콩나무 꼭대기에 오르자 눈앞에 두꺼운 구름이 잔뜩 끼어 있었어요. 구름 너머에서 무언가 커다란 그림자가 어른거렸지요.'+(C.cwPath==='cloud'?' <span class="res">구름이 걷히자 커다란 성이 나타났어요. 그런데 옆 구름길에서 새가 울고 있었어요. 잭은 새에게 가 보기로 했어요.</span>':C.cwPath?' <span class="res">구름이 걷히자 커다란 성이 나타났어요. 잭은 성문을 똑똑 두드렸어요.</span>':'')};
   // harp wakes the giant on the escape page
   const k=P.findIndex(p=>p&&p.need==='escape');
   if(k>=0&&C.loot==='harp'){ const o=P[k]; P[k]={...o,text:()=>'황금 하프를 품에 안은 잭은 발소리를 죽이고 부엌 문 쪽으로 살금살금 걸어갔어요. 어서 문 쪽으로 가야 해요!'+(C.escape?' <span class="res">그때 하프가 “띠리링~ 주인님, 도둑이에요!” 하고 노래를 불렀어요. 거인이 번쩍 눈을 떴어요!</span>':'')} }
@@ -4511,6 +4511,26 @@ DRAG.k9.auto=function(el,ill){ const harp=state.choice.loot==='harp'&&!state.cho
 .jk-sleep.gone{opacity:0;transition:opacity .5s}
 .jk-awake{position:absolute;left:.4%;top:18.5%;width:73%;height:auto;z-index:1;pointer-events:none;animation:jkUp .35s ease-out both}
 @keyframes jkUp{from{opacity:0;translate:0 1.5cqh}to{opacity:1;translate:0 0}}
+</style>
+<style id="book-thick">
+/* page block: stacked paper edges under the open spread */
+.book::after{content:"";position:absolute;left:.15em;right:.15em;top:.25em;bottom:-.85em;z-index:-1;pointer-events:none;border-radius:0 0 .25em .25em;
+  background:repeating-linear-gradient(180deg,#f6efdf 0 .09em,#e2d6bc .09em .14em);
+  box-shadow:inset 0 -.12em .2em rgba(90,70,40,.25)}
+.book::before{inset:-.55em -.7em -1.35em!important}
+.book.closed::after{display:none}
+.ill.pop3d .k4cl{opacity:0;translate:38cqw 1cqh;animation:k4clDrift 2.6s cubic-bezier(.25,.6,.3,1) 2.6s forwards!important}
+@keyframes k4clDrift{0%{opacity:0;translate:38cqw 1cqh}25%{opacity:1}100%{opacity:1;translate:0 0}}
+.ill.pop3d .k4cl1{animation:k4clDrift 2.6s cubic-bezier(.25,.6,.3,1) 2.6s forwards,k4clBob 5s ease-in-out 5.2s infinite!important}
+@keyframes k4clBob{50%{margin-top:-.6cqh}}
+</style>
+<style id="cc-veil-css">
+.cc-veil{position:absolute;left:30%;right:-2%;top:-4%;bottom:-2%;z-index:5;pointer-events:none;
+  background:radial-gradient(ellipse 60% 62% at 62% 52%,#fbf7ec 62%,rgba(251,247,236,.85) 72%,rgba(251,247,236,0) 88%);
+  opacity:calc(1 - var(--rev,0));transition:opacity .25s}
+.cc-over.rose .cc-veil{opacity:0;transition:opacity .9s}
+.cc-over .cc-l{left:34%!important;bottom:4%!important;width:44%!important}
+.cc-over .cc-r{left:58%!important;bottom:30%!important;width:44%!important}
 </style>
 <script id="desk-pop-js">
 (function(){
