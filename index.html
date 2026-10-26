@@ -4529,7 +4529,16 @@ DRAG.k9.auto=function(el,ill){ const harp=state.choice.loot==='harp'&&!state.cho
 .cc-over .cc-l{left:34%!important;bottom:4%!important;width:44%!important}
 .cc-over .cc-r{left:58%!important;bottom:30%!important;width:44%!important}
 </style>
-<style id="cg-css">.cg-grab{position:absolute;bottom:33%;height:62%;translate:-62% 0;z-index:3;opacity:0;pointer-events:none;max-width:none}
+<style id="cg-css">.cg-type{position:absolute;left:76%;top:12%;translate:-50% 0;z-index:8;display:flex;flex-direction:column;align-items:center;gap:1.2cqh;padding:1.6cqh 2.4cqw;border-radius:2cqh;background:rgba(255,251,240,.93);box-shadow:0 1cqh 2.4cqh rgba(60,40,15,.22)}
+.cg-word{font-size:4.4cqh;font-weight:800;letter-spacing:.12em;color:#8a7a62}
+.cg-word b.ok{color:#d0702f}.cg-word b.bad{color:#c43b2b;text-decoration:underline}
+.cg-inp{width:18cqw;font:600 3cqh/1.2 inherit;font-family:inherit;text-align:center;padding:.8cqh 1cqw;border:.35cqh solid #c9a35c;border-radius:1.4cqh;background:#fff;color:#4b3a24;outline:none}
+.cg-inp:focus{border-color:#d0702f;box-shadow:0 0 0 .5cqh rgba(208,112,47,.2)}
+.cg-type.hit{animation:cgHit .35s ease}@keyframes cgHit{40%{scale:1.08;background:#fff3d6}}
+.cg-type.miss .cg-inp{animation:cgMiss .3s}@keyframes cgMiss{25%{translate:-.6cqw 0}75%{translate:.6cqw 0}}
+.cg.won .cg-type,.cg.caught .cg-type,.cg.grabbed .cg-type{opacity:.35;pointer-events:none}
+.cg-run{padding:1cqh 2cqw!important;font-size:2.4cqh!important;opacity:.85}
+.cg-grab{position:absolute;bottom:33%;height:62%;translate:-62% 0;z-index:3;opacity:0;pointer-events:none;max-width:none}
 .cg.grabbed .cg-grab{opacity:1;animation:cgGrab .4s ease-out}
 .cg.grabbed .cg-giant,.cg.grabbed .cg-jack{opacity:0}
 @keyframes cgGrab{from{translate:-62% 1.5cqh}to{translate:-62% 0}}
@@ -4587,8 +4596,9 @@ function cgScene(){const C=state.choice, harp=C.loot==='harp', done=!!C.chase, k
    </div>
    <div class="cg-hud"><span class="cg-track"><i class="cg-pg"></i><i class="cg-pj"></i><b class="cg-goal"></b></span></div>
    ${done?'':`<button class="cg-item" data-act="cg-item" aria-label="${harp?'하프 연주하기':'황금알 던지기'}"><img src="${harp?IMG.harp9:IMG.hen9}" alt=""><span>${harp?'하프 연주':'황금알 던지기'}</span></button>
-   <button class="cg-run" data-act="cg-run">달려!<small>연타 · 스페이스바</small></button>
-   <span class="cg-msg">‘달려!’를 빠르게 눌러 콩나무까지 도망가요</span>`}
+   <div class="cg-type"><div class="cg-word"></div><input class="cg-inp" type="text" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="여기에 따라 쳐요" aria-label="단어 입력"></div>
+   <button class="cg-run" data-act="cg-run">달려!</button>
+   <span class="cg-msg">위 단어를 똑같이 치면 잭이 달려요! (Enter 없이 바로)</span>`}
   </div>`}
 const A=(ill)=>ill._cg;
 function pos(ill){const g=A(ill), w=ill.querySelector('.cg-world'), W=w.offsetWidth, V=ill.offsetWidth;
@@ -4598,25 +4608,36 @@ function pos(ill){const g=A(ill), w=ill.querySelector('.cg-world'), W=w.offsetWi
   const pj=ill.querySelector('.cg-pj'), pg=ill.querySelector('.cg-pg'); if(pj){pj.style.left=(g.j*100)+'%'; pg.style.left=(Math.max(0,g.g)*100)+'%'}}
 function msg(ill,t){const m=ill.querySelector('.cg-msg'); if(m){m.textContent=t; m.classList.remove('pop'); void m.offsetWidth; m.classList.add('pop')}}
 function reset(ill){ill._cg={j:0,g:-.07,on:false,used:false,stun:0,last:0,dead:false,won:false}; ill.querySelector('.cg').classList.remove('caught','running','grabbed'); const it=ill.querySelector('.cg-item'); if(it) it.disabled=false; pos(ill)}
-function init(ill){ if(ill._cgInit) return; ill._cgInit=1; reset(ill); if(state.choice.chase){ ill._cg.j=1; ill._cg.g=.8; pos(ill); return }
+function init(ill){ if(ill._cgInit) return; ill._cgInit=1; reset(ill); if(ill.querySelector('.cg-word')){ cgWord(ill); const inp=ill.querySelector('.cg-inp'); inp.addEventListener('pointerdown',e=>e.stopPropagation()); inp.addEventListener('keydown',e=>e.stopPropagation()); setTimeout(()=>{try{inp.focus({preventScroll:true})}catch(e){}},400) } if(state.choice.chase){ ill._cg.j=1; ill._cg.g=.8; pos(ill); return }
   const loop=t=>{ if(!ill.isConnected) return; const g=A(ill); const dt=g.last?Math.min(.05,(t-g.last)/1000):0; g.last=t;
-    if(g.on&&!g.dead&&!g.won){ if(t>g.stun) g.g+=dt*.105; if(g.g>=g.j-.015){ caught(ill) } }
+    if(g.on&&!g.dead&&!g.won){ if(t>g.stun) g.g+=dt*.052; if(g.g>=g.j-.015){ caught(ill) } }
     if(!g.dead) pos(ill); requestAnimationFrame(loop) };
   requestAnimationFrame(loop) }
 function caught(ill){const g=A(ill); g.dead=true; const c=ill.querySelector('.cg'); const G=ill.querySelector('.cg-giant'),K=ill.querySelector('.cg-grab'); K.style.left=G.style.left; c.classList.add('grabbed'); try{footstep(.3)}catch(e){}
   msg(ill,'앗! 거인에게 붙잡혔어요!');
   setTimeout(()=>{ if(!ill.isConnected) return; c.classList.remove('grabbed'); const J=ill.querySelector('.cg-jack'); J.style.left=(parseFloat(K.style.left)-K.offsetWidth*.28)+'px'; c.classList.add('caught'); msg(ill,'으악! 구름 아래로 던져졌어요… 다시 도전!') },1300);
-  setTimeout(()=>{ if(ill.isConnected){ reset(ill); msg(ill,'다시! ‘달려!’를 빠르게 눌러요') } },3400)}
-function run(ill){const g=A(ill); if(!g||g.dead||g.won) return; if(!g.on){ g.on=true; ill.querySelector('.cg').classList.add('running'); msg(ill,'거인이 쫓아와요! 더 빨리!') }
-  g.j=Math.min(1,g.j+.034); const J=ill.querySelector('.cg-jack'); J.classList.toggle('f2'); try{footstep(.05)}catch(e){}
+  setTimeout(()=>{ if(ill.isConnected){ reset(ill); if(ill.querySelector('.cg-word')){ cgWord(ill); const i=ill.querySelector('.cg-inp'); i.value=''; i.focus() } msg(ill,'다시! 단어를 빠르게 쳐요') } },3400)}
+function run(ill){const g=A(ill); if(!g||g.dead||g.won) return; if(!g.on){ g.on=true; ill.querySelector('.cg').classList.add('running'); msg(ill,'거인이 쫓아와요! 더 빨리 쳐요!') }
+  g.j=Math.min(1,g.j+.03); const J=ill.querySelector('.cg-jack'); J.classList.toggle('f2'); try{footstep(.05)}catch(e){}
   if(g.j>=1){ g.won=true; ill.querySelector('.cg').classList.add('won'); msg(ill,'콩나무에 도착했어요!'); try{miniDing(.2)}catch(e){}
     ill.querySelectorAll('.cg-run,.cg-item').forEach(b=>b.remove()); applyChoice('chase','yes',null,700) }}
+
+const CG_WORDS=['콩나무','도망쳐','거인이다','황금알','구름길','빨리빨리','집으로','힘내라','엄마','쿵쿵쿵','하늘','달려라'];
+function cgWord(ill){const g=A(ill); let w; do{w=CG_WORDS[Math.floor(Math.random()*CG_WORDS.length)]}while(w===g.word); g.word=w; cgPaint(ill,'')}
+function cgPaint(ill,v){const g=A(ill), el=ill.querySelector('.cg-word'); if(!el) return; let ok=0; while(ok<v.length&&v[ok]===g.word[ok]) ok++;
+  el.innerHTML=[...g.word].map((c,i)=>`<b class="${i<ok?'ok':(i===ok&&v.length>ok?'bad':'')}">${c}</b>`).join('')}
+function cgTyped(ill,inp){const g=A(ill); if(!g||g.dead||g.won) return; const v=inp.value.trim(); cgPaint(ill,v);
+  if(v===g.word){ for(let k=0;k<5;k++) setTimeout(()=>run(ill),k*55); const t=ill.querySelector('.cg-type'); t.classList.remove('hit'); void t.offsetWidth; t.classList.add('hit');
+    setTimeout(()=>{ inp.value=''; inp.blur(); inp.focus(); if(!A(ill).won) cgWord(ill) },0) }
+  else if(v.length&&!g.word.startsWith(v.slice(0,-1))){ const t=ill.querySelector('.cg-type'); t.classList.remove('miss'); void t.offsetWidth; t.classList.add('miss') } }
+document.addEventListener('input',e=>{ if(!e.target.classList||!e.target.classList.contains('cg-inp')) return; const ill=e.target.closest('.ill'); cgTyped(ill,e.target) });
+document.addEventListener('compositionend',e=>{ if(!e.target.classList||!e.target.classList.contains('cg-inp')) return; const ill=e.target.closest('.ill'); cgTyped(ill,e.target) });
 JACT['cg-run']=(a,ill)=>run(ill);
 JACT['cg-item']=(a,ill)=>{const g=A(ill); if(!g||g.used||g.dead||g.won) return; if(!g.on){ run(ill) } g.used=true; a.disabled=true;
   if(state.choice.loot==='harp'){ g.stun=performance.now()+2300; ill.querySelector('.cg').classList.add('harping'); setTimeout(()=>ill.querySelector('.cg')&&ill.querySelector('.cg').classList.remove('harping'),2300);
     [2,4,3,5,4,1].forEach((n,k)=>setTimeout(()=>{try{fnHarp(n)}catch(e){}},k*170)); msg(ill,'하프 노래에 거인이 멈칫했어요!') }
   else { g.g-=.14; const c=ill.querySelector('.cg'); c.classList.remove('egging'); void c.offsetWidth; c.classList.add('egging'); try{miniDing(.15)}catch(e){} msg(ill,'황금알에 미끄러진 거인이 뒤로 넘어졌어요!') } };
-document.addEventListener('keydown',e=>{ if(e.code!=='Space'&&e.key!==' ') return; const ill=book.querySelector(':scope > .spread .ill'); if(!ill||!ill.querySelector('.cg')||state.choice.chase) return; e.preventDefault(); run(ill) });
+document.addEventListener('keydown',e=>{ if(e.code!=='Space'&&e.key!==' ') return; if(e.target&&e.target.classList&&e.target.classList.contains('cg-inp')) return; const ill=book.querySelector(':scope > .spread .ill'); if(!ill||!ill.querySelector('.cg')||state.choice.chase) return; e.preventDefault(); run(ill) });
 new MutationObserver(()=>{ const ill=book.querySelector(':scope > .spread .ill'); if(ill&&ill.querySelector('.cg')) requestAnimationFrame(()=>init(ill)) }).observe(book,{childList:true});
 })();
 </script>
