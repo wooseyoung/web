@@ -4674,120 +4674,9 @@ new MutationObserver(()=>{ const ill=book.querySelector(':scope > .spread .ill')
 .pgw-sign::after{content:"";position:absolute;left:50%;top:-.9cqh;width:4.2cqh;height:1.8cqh;translate:-50% 0;rotate:-6deg;background:rgba(232,210,150,.8)}
 .pgw-sign-home{rotate:-4deg} .pgw-sign-wolf{rotate:7deg}
 </style>
-<style id="story-plans-css">
-.story-plan[hidden]{display:none!important}
-.story-plan{position:absolute;inset:0;z-index:150;overflow:hidden;background:#fffbed;pointer-events:auto;color:#51402e;text-align:left}
-.story-plan .plan-scene-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
-.story-plan .plan-copy{position:absolute;z-index:30;left:4.5%;top:6%;width:37%;max-height:88%;overflow:auto;box-sizing:border-box;padding:0 1% 1% 0;background:linear-gradient(90deg,rgba(255,251,237,.96) 65%,rgba(255,251,237,.82));font-family:inherit;pointer-events:auto}
-.plan-status{display:inline-block;font-size:clamp(9px,1.05vw,12px);font-weight:600;color:#75694b;border-bottom:1px solid #c6b997;padding-bottom:.35em;letter-spacing:.05em}
-.story-plan h3{font-size:clamp(16px,2.1vw,25px);line-height:1.4;margin:.6em 0 .45em;font-weight:600;color:#5d4a32}
-.story-plan p,.story-plan li{font-size:clamp(11px,1.28vw,15px);line-height:1.65;word-break:keep-all}
-.story-plan .plan-intro{margin:.5em 0 .8em}
-.story-plan ol{padding-left:1.5em;margin:0}
-.story-plan li{margin-bottom:.45em;padding-left:.2em}
-.story-plan .plan-note{font-size:clamp(9px,1.05vw,12px);line-height:1.6;color:#78694f;margin:1em 0}
-.plan-actions{display:flex;gap:.6em;flex-wrap:wrap}
-.plan-actions button,.story-plan-trigger{appearance:none;font:inherit;font-size:clamp(10px,1.1vw,13px);line-height:1.35;border:1px solid #b5a17e;color:#665239;background:#fffbed;border-radius:999px;padding:.7em 1em;cursor:pointer;pointer-events:auto}
-.plan-actions .plan-continue{background:#706c4b;border-color:#706c4b;color:#fffbed}
-.story-plan-trigger{position:absolute;right:3%;top:3%;z-index:160;box-shadow:0 2px 7px #6a57341a}
-.plan-actions button:hover,.story-plan-trigger:hover{filter:brightness(.94)}
-.plan-actions button:focus-visible,.story-plan-trigger:focus-visible{outline:2px solid #50684b;outline-offset:3px}
-.show-story-plan>.storytext,.show-story-plan>.pnav.next,.show-story-plan>.skipbtn,.show-story-plan>.story-plan-trigger{visibility:hidden!important;pointer-events:none!important}
-.show-story-plan>.ill>:not(.story-plan){visibility:hidden!important;pointer-events:none!important}
-.story-plan .plan-original-pig{position:absolute;z-index:2;pointer-events:none;animation:none!important}
-.story-plan .plan-original-pig img{animation:none!important}
-.story-plan .plan-original-jack{position:absolute;z-index:20;left:67%;bottom:8%;width:auto;height:46%;object-fit:contain;pointer-events:none}
-@media(max-width:650px){.story-plan .plan-copy{left:3%;top:4%;width:42%;max-height:92%}.story-plan h3{font-size:16px}.story-plan p,.story-plan li{font-size:11px;line-height:1.5}.story-plan .plan-note{font-size:10px}.plan-actions button{font-size:10px;padding:.6em .8em}.story-plan .plan-original-pig{left:46%!important}}
 
-</style>
 
-<script id="story-plans-js">
-/* Presentation previews: planned interactions stay separate from the working story. */
-(() => {
-  const plans = {
-    pgBuild: {
-      title: '짚단을 엮어 집 짓기', image: 'img/d7531bcbc3b6.webp', pig: 0,
-      intro: '첫째가 짚단을 하나씩 옮겨 직접 집을 짓는 장면.',
-      steps: ['짚단을 벽의 빈자리로 끌어 놓기', '벽을 다 채우면 지붕에 짚을 차곡차곡 얹기', '집이 완성되면 첫째가 문을 열고 들어감'],
-      note: '벽 → 지붕 → 입주 순서의 조립 인터랙션 구현 예정'
-    },
-    pgWoodBuild: {
-      title: '나무판을 맞춰 집 짓기', image: 'img/da5b13c32856.webp', pig: 1,
-      intro: '둘째와 함께 나무판을 세우고 지붕을 덮는 장면.',
-      steps: ['나무판을 기둥 사이 빈자리에 맞추기', '판자가 맞으면 고정되며 벽이 이어짐', '지붕널과 문까지 붙이면 나무집 완성'],
-      note: '재료를 놓는 순서대로 집이 실제로 조립되는 모습 구현 예정'
-    },
-    pgBrickBuild: {
-      title: '벽돌을 쌓아 튼튼한 집 짓기', image: 'img/d893fb865eda.webp', pig: 2,
-      intro: '셋째를 도와 벽돌을 한 줄씩 엇갈리게 쌓는 장면.',
-      steps: ['벽돌을 아래쪽 빈자리부터 옮겨 놓기', '한 줄을 채우면 다음 줄을 쌓을 수 있음', '벽과 지붕을 완성하면 삼형제를 지켜 줄 집 완성'],
-      note: '한 번에 집이 나타나는 대신 벽돌 → 벽 → 지붕 순서로 완성 예정'
-    },
-    harpTalk: {
-      title: '하프와 조용히 이야기하기', image: IMG.k7,
-      intro: '잠든 거인 옆에서 하프에게 작은 목소리로 말을 거는 장면.',
-      steps: ['하프를 눌러 대화 시작', '잭이 하프에게 조용히 해 달라고 부탁하거나 서두름', '고른 대답에 따라 하프가 조용해지거나 소리쳐 거인을 깨움'],
-      note: '대화 선택에 따라 하프가 잠시 조용해지거나 거인을 깨우고, 그 결과가 도망갈 수 있는 시간에 영향을 주도록 구현 예정'
-    }
-  };
-  const previousRender = render;
-  render = function (index) {
-    const spread = previousRender(index);
-    const page = pagesFor(state.story)[index];
-    const key = state.story === 'pigs' && plans[page?.need] ? page.need :
-      state.story === 'jack' && page?.need === 'escape' && state.choice.loot === 'harp' ? 'harpTalk' : null;
-    if (!key || !spread.querySelector('.ill')) return spread;
-    const spec = plans[key];
-    const ill = spread.querySelector('.ill');
-    spread.classList.add('has-story-plan');
-    spread.dataset.planKey = key;
-    const preview = document.createElement('section');
-    preview.className = 'story-plan';
-    preview.setAttribute('aria-label', spec.title + ' 구현 예정 안내');
-    const character = spec.pig !== undefined ?
-      pgPig(spec.pig, 'left:43%;bottom:9%;width:10.5%', 'plan-original-pig') :
-      jKitchenRest() + `<img class="plan-original-jack" src="${NIMG.jack_harp_harp_stand}" alt="황금 하프를 안은 잭" draggable="false">`;
-    preview.innerHTML = `<img class="plan-scene-art" src="${spec.image}" alt="${spec.pig !== undefined ? '벽과 지붕을 조립하는 중인 집의 예상 장면' : '거인의 부엌에서 하프와 대화할 예정인 장면'}" draggable="false">${character}
-      <div class="plan-copy"><span class="plan-status">구현 예정 · 기획 이미지</span><h3>${spec.title}</h3><p class="plan-intro">${spec.intro}</p>
-      <ol>${spec.steps.map(step => `<li>${step}</li>`).join('')}</ol><p class="plan-note">${spec.note}</p>
-      <div class="plan-actions"><button type="button" data-plan-action="experience">현재 체험 보기</button>${key !== 'harpTalk' ? '<button type="button" class="plan-continue" data-plan-action="continue">이야기 계속 →</button>' : ''}</div></div>`;
-    ill.appendChild(preview);
-    const trigger = document.createElement('button');
-    trigger.type = 'button';
-    trigger.className = 'story-plan-trigger';
-    trigger.dataset.planAction = 'preview';
-    trigger.textContent = '구현 예정 보기';
-    trigger.setAttribute('aria-expanded', String(key !== 'harpTalk'));
-    spread.appendChild(trigger);
-    spread.classList.toggle('show-story-plan', key !== 'harpTalk');
-    preview.hidden = key === 'harpTalk';
-    return spread;
-  };
-  document.addEventListener('click', event => {
-    const button = event.target.closest('[data-plan-action]');
-    if (!button) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    const spread = button.closest('.has-story-plan');
-    if (!spread || spread.parentNode !== book || state.busy) return;
-    const action = button.dataset.planAction;
-    if (action === 'continue') {
-      const key = spread.dataset.planKey;
-      if (!['pgBuild', 'pgWoodBuild', 'pgBrickBuild'].includes(key)) return;
-      applyChoice(key, 'yes', null, 0);
-      go(state.page + 1);
-      return;
-    }
-    const show = action === 'preview';
-    spread.classList.toggle('show-story-plan', show);
-    spread.querySelector('.story-plan').hidden = !show;
-    const trigger = spread.querySelector('.story-plan-trigger');
-    trigger.setAttribute('aria-expanded', String(show));
-    (show ? spread.querySelector('[data-plan-action="experience"]') : trigger).focus({preventScroll:true});
-  }, true);
-})();
 
-</script>
 <script id="text-skip">
 document.addEventListener('pointerdown',e=>{
   const st=book.querySelector(':scope > .spread .storytext'); if(!st) return;
@@ -4797,29 +4686,8 @@ document.addEventListener('pointerdown',e=>{
 },true);
 </script>
 <style id="text-skip-css">.pg-after .pg-out-pig{z-index:7!important}.spread .storytext{cursor:pointer}.spread .storytext .pend{transition-duration:.15s!important}</style>
-<script id="page-memo">
-(function(){
-const MEMO={
- 'jack:climb':'콩나무와 잭의 색·선을 통일하고, 손발을 번갈아 짚는 동작을 이어 실제로 오르는 느낌을 보완할 예정',
- 'jack:descend':'콩나무와 잭의 색·선을 통일하고, 손발을 번갈아 짚는 동작을 이어 실제로 내려오는 느낌을 보완할 예정',
- 'jack:ghWater':'빈자리를 부러진 나무 수로 모양으로 바꾸고, 조각을 잇고 밸브를 열면 물이 화분까지 흘러가는 모습을 보완할 예정',
- 'jack:chop':'밑동을 땅과 자연스럽게 잇고, 도끼가 닿을 때마다 홈과 나무 조각이 생기게 한 뒤 마지막에 줄기가 기울어 쓰러지는 연출을 추가할 예정',
- 'pigs:pgStop':'굴뚝으로 내려온 늑대가 끓는 솥에 빠지는 장면을 늑대가 미끄러져 떨어지고 물이 튀는 연속 동작으로 자연스럽게 다듬을 예정',
- 'pigs:pgEscapeStraw':'짓는 중·완성·무너진 짚집을 같은 디자인으로 통일하고, 바람에 지붕과 벽이 차례로 무너지는 연출을 추가할 예정'
-};
-const R=render;
-render=function(i){const sp=R(i); try{const p=pagesFor(state.story)[i]; const t=p&&p.need&&MEMO[state.story+':'+p.need];
-  if(t){const m=document.createElement('aside'); m.className='page-memo'; m.dataset.k=state.story+':'+p.need; m.innerHTML='<b>구현 예정</b><span>'+t+'</span>'; m.title='눌러서 접기/펴기'; sp.appendChild(m)} }catch(e){} return sp};
-document.addEventListener('pointerdown',e=>{const m=e.target.closest&&e.target.closest('.page-memo'); if(!m) return; e.stopPropagation(); e.preventDefault(); m.classList.toggle('min')},true);
-})();
-</script>
-<style id="page-memo-css">.page-memo[data-k="pigs:pgStop"]{right:auto;left:30cqw;top:36cqh}
-.page-memo{position:absolute;right:2.4cqw;top:7.5cqh;z-index:40;width:24cqw;box-sizing:border-box;padding:1.6cqh 1.3cqw 1.3cqh;background:#fbf4e2;color:#5a4630;rotate:1.2deg;cursor:pointer;
-  box-shadow:0 .3cqh .6cqh rgba(70,50,25,.18);background-image:repeating-linear-gradient(180deg,transparent 0 2.9cqh,rgba(150,120,80,.13) 2.9cqh 3cqh);font-size:1.75cqh;line-height:1.7;word-break:keep-all;transition:opacity .2s}
-.page-memo::before{content:"";position:absolute;left:50%;top:-1.1cqh;width:6cqh;height:2.2cqh;translate:-50% 0;rotate:-4deg;background:rgba(232,210,150,.8)}
-.page-memo b{display:block;font-size:1.5cqh;letter-spacing:.2em;color:#9a7b4f;margin-bottom:.3cqh}
-.page-memo.min{width:auto;padding:.9cqh 1.1cqw}.page-memo.min span{display:none}.page-memo.min b{margin:0}
-</style>
+
+
 <script id="pot-end">
 (function(){
 const pick0=JACT['pg-pick'];
