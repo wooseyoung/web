@@ -4764,7 +4764,7 @@ new MutationObserver(()=>{ if(reader.hidden) travel.classList.remove('popbook') 
 <style id="kids12-sep">
 .kid12{position:absolute;left:30.7%;top:23.1%;width:43.6%;pointer-events:none;transform-origin:50% 100%;animation:breath 3.4s ease-in-out infinite}
 .kid12.v{z-index:1;translate:0 8.2cqh;width:40.5%;left:32.2%;animation-delay:-1.1s}
-.kid12.h{z-index:3;translate:-1.6cqw 6.5cqh;animation-delay:-2.2s}
+.kid12.h{z-index:5;translate:-1.6cqw 6.5cqh;animation-delay:-2.2s}
 .kid12.g{z-index:3;translate:1.2cqw 5.6cqh}
 .stump12{z-index:2}
 .clue{z-index:4!important}
@@ -4778,19 +4778,5 @@ new MutationObserver(()=>{ if(reader.hidden) travel.classList.remove('popbook') 
 @keyframes kidHop{30%{transform:translateY(-2cqh)}60%{transform:translateY(0)}80%{transform:translateY(-.6cqh)}100%{transform:none}}
 </style>
 <script id="kids12-react">(function(){const A0=applyChoice;applyChoice=function(k,v,...r){ if(k==='clue'){ const ill=book.querySelector(':scope > .spread .ill'); if(ill) ill.querySelectorAll('.kid12').forEach(e=>{e.classList.remove('saw-map','saw-bell');void e.offsetWidth;e.classList.add('saw-'+v)}) } return A0.call(this,k,v,...r) };})();</script>
-<style id="straw-collapse">
-.pgc{position:absolute;left:47%;bottom:-7%;width:49%;aspect-ratio:4/3;z-index:3;pointer-events:none;display:none}
-.pg-escape[data-escape="0"].blown:not(.escaped) .pgc{display:block}
-.pgc img{position:absolute;inset:0;width:100%;height:100%}
-.pgc-roof{clip-path:polygon(0 0,100% 0,100% 61%,88% 61%,75% 57.5%,50% 56.5%,25% 56%,8% 56.5%,0 57.5%);transform-origin:70% 55%;animation:pgcRoof 1.2s cubic-bezier(.4,0,.6,1) .15s forwards}
-.pgc-wall{clip-path:polygon(0 100%,100% 100%,100% 61%,88% 61%,75% 57.5%,50% 56.5%,25% 56%,8% 56.5%,0 57.5%);transform-origin:50% 100%;animation:pgcWall .9s cubic-bezier(.5,0,.8,.5) 1s forwards}
-@keyframes pgcRoof{0%{transform:none}25%{transform:translate(1%,-6%) rotate(3deg)}60%{transform:translate(18%,-14%) rotate(14deg);opacity:1}100%{transform:translate(42%,-4%) rotate(28deg);opacity:0}}
-@keyframes pgcWall{0%{transform:none}35%{transform:skewX(-6deg) translateX(2%)}100%{transform:skewX(-14deg) translate(8%,12%) scaleY(.15);opacity:0}}
-.pgc i{position:absolute;width:9%;height:1.6%;border-radius:40%;background:#e6c06a;left:calc(30% + var(--n,0)*8%);top:30%;opacity:0;animation:pgcStraw 1.4s ease-out .5s forwards}
-.pgc i:nth-of-type(1){--n:0;--dx:40%;--dy:-20%}.pgc i:nth-of-type(2){--n:1;--dx:55%;--dy:-30%}.pgc i:nth-of-type(3){--n:2;--dx:70%;--dy:-10%}.pgc i:nth-of-type(4){--n:3;--dx:50%;--dy:10%}.pgc i:nth-of-type(5){--n:4;--dx:65%;--dy:-40%}.pgc i:nth-of-type(6){--n:5;--dx:35%;--dy:5%}
-@keyframes pgcStraw{0%{opacity:0}15%{opacity:1}100%{opacity:0;translate:var(--dx) var(--dy);rotate:220deg}}
-.pg-escape[data-escape="0"].blown .pg-broken-home{animation:none!important;opacity:0!important;transition:none!important}
-.pg-escape[data-escape="0"].blown:not(.escaped) .pg-lone-rubble{transition:opacity .6s 1.55s!important}
-@media(prefers-reduced-motion:reduce){.pgc{display:none!important}}
-</style>
+<style id="straw-collapse">.pgc{display:none!important}.pg-escape[data-escape="0"].blown .pg-broken-home{animation:none!important;opacity:0!important;transition:none!important}.pg-escape[data-escape="0"].blown .pg-lone-rubble{transition:none!important;opacity:1}</style>
 </body></html>
