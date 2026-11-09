@@ -4779,4 +4779,42 @@ new MutationObserver(()=>{ if(reader.hidden) travel.classList.remove('popbook') 
 </style>
 <script id="kids12-react">(function(){const A0=applyChoice;applyChoice=function(k,v,...r){ if(k==='clue'){ const ill=book.querySelector(':scope > .spread .ill'); if(ill) ill.querySelectorAll('.kid12').forEach(e=>{e.classList.remove('saw-map','saw-bell');void e.offsetWidth;e.classList.add('saw-'+v)}) } return A0.call(this,k,v,...r) };})();</script>
 <style id="straw-collapse">.pgc{display:none!important}.pg-escape.blown .pg-broken-home{animation:none!important;opacity:0!important;transition:none!important}.pg-escape.blown .pg-lone-rubble{transition:none!important;opacity:1}</style>
+<script id="house-build2">
+(function(){
+const HB={1:{key:'pgWoodBuild',un:'img/wood_unfinished.webp',piece:'img/wood_piece.webp',holes:[[231,315,148,53],[454,299,155,64]],house:'left:46%;bottom:13%;width:47%',pig:'left:15%;bottom:8%;width:12%',name:'지붕 조각'},
+          2:{key:'pgBrickBuild',un:'img/brick_unfinished.webp',piece:'img/brick_piece.webp',holes:[[295,571,66,40],[590,532,60,42]],house:'left:45%;bottom:10%;width:49%',pig:'left:14%;bottom:8%;width:11%',name:'벽돌'}};
+const pc=(v,t)=>(v/t*100).toFixed(2)+'%';
+pgBuildHouse=function(i){const c=HB[i],done=!!state.choice[c.key];
+  return `<div class="pg-scene hb2${done?' done':''}" data-home="${i}"><span class="hb2-house" style="${c.house}"><img class="hb2-un" src="${c.un}" alt="" draggable="false">${c.holes.map(([x,y,w,h],k)=>`<span class="hb2-hole" data-k="${k}" style="left:${pc(x,1000)};top:${pc(y,750)};width:${pc(w,1000)};height:${pc(h,750)}"><img class="hb2-fill" src="${c.piece}" alt="" draggable="false"></span>`).join('')}${pgHouse(i,'','hb2-done')}</span>${pgPig(i,c.pig,'pg-builder')}${done?'':c.holes.map((_,k)=>`<button class="hb2-piece hb2-p${i}" data-act="hb2-pick" data-k="${k}" aria-label="${c.name} ${k+1} 끼우기" style="left:${28+k*11}%;bottom:${4+k*3}%;rotate:${k?8:-6}deg"><img src="${c.piece}" alt="" draggable="false"></button>`).join('')}</div>`;};
+function fill(ill,btn,k){const sc=ill.querySelector('.hb2');if(!sc||sc.classList.contains('done'))return;const hole=sc.querySelectorAll('.hb2-hole')[k];if(!hole||hole.classList.contains('on'))return;
+  const r=btn.getBoundingClientRect(),h=hole.getBoundingClientRect();btn.style.transition='transform .5s cubic-bezier(.4,1.3,.5,1),opacity .2s .45s';
+  btn.style.transform=`translate(${h.left+h.width/2-(r.left+r.width/2)}px,${h.top+h.height/2-(r.top+r.height/2)}px) scale(${h.width/r.width})`;btn.style.rotate='0deg';btn.disabled=true;
+  setTimeout(()=>{btn.style.opacity=0;hole.classList.add('on');try{footstep(.3)}catch(e){}const p=sc.querySelector('.pg-builder');if(p){p.classList.remove('hop');void p.offsetWidth;p.classList.add('hop')}
+    if(sc.querySelectorAll('.hb2-hole.on').length===2){setTimeout(()=>{sc.classList.add('done');try{miniDing(.2)}catch(e){}pgDone(HB[+sc.dataset.home].key,'yes',ill,900)},350)}},480);}
+JACT['hb2-pick']=(a,ill)=>{if(a._drag)return;const sc=ill.querySelector('.hb2');const free=[...sc.querySelectorAll('.hb2-hole:not(.on)')][0];if(free)fill(ill,a,+free.dataset.k)};
+let d=null;
+document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('.hb2-piece');if(!b||b.disabled)return;d={b,x:e.clientX,y:e.clientY,moved:false};try{b.setPointerCapture(e.pointerId)}catch(_){}},true);
+document.addEventListener('pointermove',e=>{if(!d)return;const dx=e.clientX-d.x,dy=e.clientY-d.y;if(Math.hypot(dx,dy)>6)d.moved=true;if(d.moved){d.b.classList.add('held');d.b.style.transform=`translate(${dx}px,${dy}px)`}});
+document.addEventListener('pointerup',e=>{if(!d)return;const D=d;d=null;D.b.classList.remove('held');if(!D.moved)return;D.b._drag=true;setTimeout(()=>D.b._drag=false,300);
+  const ill=D.b.closest('.ill'),sc=ill.querySelector('.hb2');let best=null;sc.querySelectorAll('.hb2-hole:not(.on)').forEach(h=>{const r=h.getBoundingClientRect();const cx=r.left+r.width/2,cy=r.top+r.height/2;const dist=Math.hypot(e.clientX-cx,e.clientY-cy);if(dist<Math.max(r.width,r.height)*1.6&&(!best||dist<best[0]))best=[dist,h]});
+  if(best){D.b.style.transform='';fill(ill,D.b,+best[1].dataset.k)}else{D.b.style.transition='transform .35s ease';D.b.style.transform='';setTimeout(()=>D.b.style.transition='',380)}});
+})();
+</script>
+<style id="house-build2-css">
+.hb2-house{position:absolute;aspect-ratio:4/3}
+.hb2-house>img,.hb2-house>.pg-house{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hb2-done{opacity:0;transition:opacity .6s}
+.hb2.done .hb2-done{opacity:1}
+.hb2-hole{position:absolute;pointer-events:none}
+.hb2-hole .hb2-fill{width:100%;height:100%;object-fit:fill;opacity:0;transition:opacity .25s}
+.hb2-hole.on .hb2-fill{opacity:1}
+.hb2:not(.done) .hb2-hole:not(.on){outline:.3cqh dashed rgba(255,236,170,.0);animation:hb2Cue 1.6s ease-in-out infinite;border-radius:30%}
+@keyframes hb2Cue{50%{box-shadow:0 0 0 .4cqh rgba(255,226,140,.75),0 0 1.4cqh rgba(255,226,140,.6)}}
+.hb2-piece{position:absolute;z-index:6;border:0;background:none;padding:0;cursor:grab;touch-action:none;filter:drop-shadow(0 .5cqh .5cqh rgba(60,40,20,.3))}
+.hb2-piece img{width:100%;display:block;pointer-events:none}
+.hb2-p1{width:11%}.hb2-p2{width:6.5%}
+.hb2-piece:not(:disabled){animation:hb2Bob 2s ease-in-out infinite}
+.hb2-piece.held{animation:none;cursor:grabbing;z-index:9}
+@keyframes hb2Bob{50%{translate:0 -.8cqh}}
+</style>
 </body></html>
