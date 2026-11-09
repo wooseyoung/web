@@ -2267,7 +2267,7 @@ function pageHansel(i){
             (C.clue==='map'?' <span class="res">헨젤이 지도를 펼치자 개울 위 다리로 가는 빨간 점선이 보였어요.</span>':C.clue==='bell'?' <span class="res">그레텔이 종을 흔들자 맑은 소리가 숲 깊숙이 울려 퍼졌어요.</span>':''),
           fx:()=>[[8,53,0],[19,58,-1.7],[30,49,-3]].map(([x,y,d])=>`<img class="ripamb" src="${IMG.rip2}" alt="" style="left:${x}%;top:${y}%;--dl:${d}s;width:5%">`).join('')+
             [[10,30],[36,20],[74,34],[90,46],[60,14]].map(([x,y],k)=>`<span class="ff10" style="left:${x}%;top:${y}%;--t:${7+k}s;--dl:${-k*1.4}s;--a:${(k%2?1:-1)*3}em;--b:${-2+k%3}em;--c2:${(k%2?-1:1)*2}em;--d2:${1-k%2}em"><img src="${IMG[k%2?'sun2':'sun1']}" alt=""></span>`).join('')+
-            `<img class="kids12" src="${IMG.kidsN12}" alt="" draggable="false">`+
+            `<img class="kid12 v${C.clue?' saw-'+C.clue:''}" src="img/kid12_v.webp" alt="" draggable="false"><img class="kid12 h${C.clue?' saw-'+C.clue:''}" src="img/kid12_h.webp" alt="" draggable="false"><img class="kid12 g${C.clue?' saw-'+C.clue:''}" src="img/kid12_g.webp" alt="" draggable="false">`+
             `<img class="stump12" src="${IMG.stump}" alt="" draggable="false">`+
             `<button class="clue map" data-drag="map" aria-label="낡은 지도 (옆으로 끌어 펼치기)"><img class="fold" src="${IMG.mapF}" alt="" draggable="false"><img class="op" src="${IMG.map}" alt="" draggable="false"></button>`+
             `<button class="clue bell" data-drag="bell" aria-label="작은 종 (좌우로 흔들기)"><img src="${IMG.bell}" alt="" draggable="false"></button>`+
@@ -3933,7 +3933,7 @@ IMG.pgBrickHouse="img/04a79602567d.webp";
 IMG.pgWoodRubble="img/f9dad8f911e3.webp";
 IMG.pgStrawHouse="img/968b9dcc921a.webp";
 IMG.pgInterior="img/a50eeb9c546a.webp";
-IMG.pgStrawRubble="img/eea826ae7b8e.webp";
+IMG.pgStrawRubble="img/straw_rubble2.webp";
 IMG.pgDeparture="img/0dbd21c9c272.webp";
 IMG.pgWoodGrove="img/049f3b92f696.webp";
 IMG.pgBrickYard="img/ea6b09b46999.webp";
@@ -3972,7 +3972,7 @@ function pgBuild(){const done=!!state.choice.pgBuild;return `<div class="pg-scen
 function pgEscape(i,solo){const key=i===0?'pgEscapeStraw':'pgEscapeWood',done=!!state.choice[key];
  const group=i===0?pgPig(0,'position:relative;width:100%'):(solo?pgPig(1,'position:relative;width:100%'):pgPig(0,'position:relative;width:100%')+pgPig(1,'left:82%;bottom:0%;width:100%'));
  const label=i===0?'첫째':(solo?'둘째':'두 형제');
- return `<div class="pg-scene pg-escape pg-solo${done?' blown escaped':''}" data-escape="${i}"><span class="pg-broken-home pg-lone">${pgHome(i,'width:100%;position:relative')}</span><img class="pg-rubble-art pg-lone-rubble" src="${IMG[i===0?'pgStrawRubble':'pgWoodRubble']}" alt="무너진 ${PG_LABELS[i]}집"><span class="pg-wind" aria-hidden="true">${Array.from({length:6},(_,n)=>`<i style="--n:${n}"></i>`).join('')}${Array.from({length:7},(_,n)=>`<b class="pg-bit" style="--n:${n}"></b>`).join('')}</span><button class="pg-wolf-blow" data-act="pg-blow" aria-label="늑대를 눌러 바람 불기">${pgWolf('position:relative;height:auto;width:100%','pg-blowing-wolf')}${done?'':'<span class="hs pg-cue" style="left:80%;top:26%"></span>'}</button><button class="pg-flee-group" data-act="pg-escape" data-from="${i}" aria-label="${label}를 오른쪽으로 달리게 하기">${group}</button>${done?'':pgHint(i===1?'늑대를 눌러 바람을 불어 보세요. 이번엔 한 번으로는 안 무너져요.':'늑대를 눌러 바람을 불어 보세요.')}</div>`;}
+ return `<div class="pg-scene pg-escape pg-solo${done?' blown escaped':''}" data-escape="${i}"><span class="pg-broken-home pg-lone">${pgHome(i,'width:100%;position:relative')}</span>${i===0?`<span class="pgc" aria-hidden="true"><img class="pgc-wall" src="${IMG.pgStrawHouse}" alt=""><img class="pgc-roof" src="${IMG.pgStrawHouse}" alt=""><i></i><i></i><i></i><i></i><i></i><i></i></span>`:''}<img class="pg-rubble-art pg-lone-rubble" src="${IMG[i===0?'pgStrawRubble':'pgWoodRubble']}" alt="무너진 ${PG_LABELS[i]}집"><span class="pg-wind" aria-hidden="true">${Array.from({length:6},(_,n)=>`<i style="--n:${n}"></i>`).join('')}${Array.from({length:7},(_,n)=>`<b class="pg-bit" style="--n:${n}"></b>`).join('')}</span><button class="pg-wolf-blow" data-act="pg-blow" aria-label="늑대를 눌러 바람 불기">${pgWolf('position:relative;height:auto;width:100%','pg-blowing-wolf')}${done?'':'<span class="hs pg-cue" style="left:80%;top:26%"></span>'}</button><button class="pg-flee-group" data-act="pg-escape" data-from="${i}" aria-label="${label}를 오른쪽으로 달리게 하기">${group}</button>${done?'':pgHint(i===1?'늑대를 눌러 바람을 불어 보세요. 이번엔 한 번으로는 안 무너져요.':'늑대를 눌러 바람을 불어 보세요.')}</div>`;}
 /* 3. 둘째: 형을 숨길 곳 고르기 (문 / 길) */
 function pgHide(){const v=state.choice.pgHide,done=!!v;return `<div class="pg-scene pg-at-home pg-hide${done?' picked':''}${done&&v==='inside'?' entered':''}" ${done?`data-pick="${v}"`:''}>${pgHome(1,'left:46%;bottom:13%;width:47%','pg-focus-home',done&&v==='inside')}${pgPig(1,'left:40%;bottom:8%;width:12%;--walk:40cqw','pg-going-in pg-p1')}${pgPig(0,'left:22%;bottom:8%;width:13%;--walk:58cqw','pg-going-in pg-p0 pg-arriving')}${done?'':pgHs('pg-pick','left:77.5%;top:63%;width:7%;height:22%','집 안으로 숨기기','data-key="pgHide" data-v="inside"')+pgHs('pg-pick','left:88%;top:70%;width:8%;height:21%','뒷길로 보내기','data-key="pgHide" data-v="back"')}</div>`;}
 function pgBrickHome(){const done=!!state.choice.pgBrickDoor;return `<div class="pg-scene pg-brick${done?' secured':''}">${pgHome(2,'left:45%;bottom:10%;width:49%','pg-focus-home',!done)}${[0,1,2].map(i=>pgPig(i,`left:${24+i*12}%;bottom:8%;width:11%;--walk:${56-i*12}cqw`,'pg-going-in')).join('')}${pgWolf('left:2%;bottom:15%;height:32%','pg-distant-wolf')}<button class="pg-close-door" data-act="pg-close" aria-label="삼형제가 들어간 뒤 벽돌집 문 닫기"></button>${done?'':pgHint('문을 눌러 형제들을 안으로 들여보내 주세요.')}</div>`;}
@@ -4761,4 +4761,36 @@ new MutationObserver(check).observe(book,{childList:true});
 new MutationObserver(()=>{ if(reader.hidden) travel.classList.remove('popbook') }).observe(reader,{attributes:true,attributeFilter:['hidden']});
 })();
 </script>
+<style id="kids12-sep">
+.kid12{position:absolute;left:30.7%;top:23.1%;width:43.6%;pointer-events:none;transform-origin:50% 100%;animation:breath 3.4s ease-in-out infinite}
+.kid12.v{z-index:1;translate:0 8.2cqh;width:40.5%;left:32.2%;animation-delay:-1.1s}
+.kid12.h{z-index:3;translate:-1.6cqw 6.5cqh;animation-delay:-2.2s}
+.kid12.g{z-index:3;translate:1.2cqw 5.6cqh}
+.stump12{z-index:2}
+.clue{z-index:4!important}
+.kid12.saw-map.h{animation:kidLean 1.4s ease-out both}
+.kid12.saw-map.v{animation:kidPeek 1.4s ease-out both}
+.kid12.saw-map.g{animation:kidPeek 1.4s ease-out .15s both}
+.kid12.saw-bell.g{animation:kidHop 1.2s ease-out both}
+.kid12.saw-bell.h,.kid12.saw-bell.v{animation:kidPeek 1.4s ease-out .2s both}
+@keyframes kidLean{50%{rotate:-3deg}100%{rotate:-1.5deg}}
+@keyframes kidPeek{50%{transform:translateY(.8cqh) rotate(1.5deg)}100%{transform:translateY(.4cqh) rotate(1deg)}}
+@keyframes kidHop{30%{transform:translateY(-2cqh)}60%{transform:translateY(0)}80%{transform:translateY(-.6cqh)}100%{transform:none}}
+</style>
+<script id="kids12-react">(function(){const A0=applyChoice;applyChoice=function(k,v,...r){ if(k==='clue'){ const ill=book.querySelector(':scope > .spread .ill'); if(ill) ill.querySelectorAll('.kid12').forEach(e=>{e.classList.remove('saw-map','saw-bell');void e.offsetWidth;e.classList.add('saw-'+v)}) } return A0.call(this,k,v,...r) };})();</script>
+<style id="straw-collapse">
+.pgc{position:absolute;left:47%;bottom:-7%;width:49%;aspect-ratio:4/3;z-index:3;pointer-events:none;display:none}
+.pg-escape[data-escape="0"].blown:not(.escaped) .pgc{display:block}
+.pgc img{position:absolute;inset:0;width:100%;height:100%}
+.pgc-roof{clip-path:polygon(0 0,100% 0,100% 61%,88% 61%,75% 57.5%,50% 56.5%,25% 56%,8% 56.5%,0 57.5%);transform-origin:70% 55%;animation:pgcRoof 1.2s cubic-bezier(.4,0,.6,1) .15s forwards}
+.pgc-wall{clip-path:polygon(0 100%,100% 100%,100% 61%,88% 61%,75% 57.5%,50% 56.5%,25% 56%,8% 56.5%,0 57.5%);transform-origin:50% 100%;animation:pgcWall .9s cubic-bezier(.5,0,.8,.5) 1s forwards}
+@keyframes pgcRoof{0%{transform:none}25%{transform:translate(1%,-6%) rotate(3deg)}60%{transform:translate(18%,-14%) rotate(14deg);opacity:1}100%{transform:translate(42%,-4%) rotate(28deg);opacity:0}}
+@keyframes pgcWall{0%{transform:none}35%{transform:skewX(-6deg) translateX(2%)}100%{transform:skewX(-14deg) translate(8%,12%) scaleY(.15);opacity:0}}
+.pgc i{position:absolute;width:9%;height:1.6%;border-radius:40%;background:#e6c06a;left:calc(30% + var(--n,0)*8%);top:30%;opacity:0;animation:pgcStraw 1.4s ease-out .5s forwards}
+.pgc i:nth-of-type(1){--n:0;--dx:40%;--dy:-20%}.pgc i:nth-of-type(2){--n:1;--dx:55%;--dy:-30%}.pgc i:nth-of-type(3){--n:2;--dx:70%;--dy:-10%}.pgc i:nth-of-type(4){--n:3;--dx:50%;--dy:10%}.pgc i:nth-of-type(5){--n:4;--dx:65%;--dy:-40%}.pgc i:nth-of-type(6){--n:5;--dx:35%;--dy:5%}
+@keyframes pgcStraw{0%{opacity:0}15%{opacity:1}100%{opacity:0;translate:var(--dx) var(--dy);rotate:220deg}}
+.pg-escape[data-escape="0"].blown .pg-broken-home{animation:none!important;opacity:0!important;transition:none!important}
+.pg-escape[data-escape="0"].blown:not(.escaped) .pg-lone-rubble{transition:opacity .6s 1.55s!important}
+@media(prefers-reduced-motion:reduce){.pgc{display:none!important}}
+</style>
 </body></html>
